@@ -49,4 +49,16 @@ Future<void> setupDependencies() async {
       apiService: getIt<AuthApiService>(),
     ),
   );
+
+  // Registro Repositorios
+  getIt.registerLazySingleton<AuthRepository>(
+    () => AuthRepositoryImpl(
+      remoteDataSource: getIt<AuthRemoteDataSource>(),
+    ),
+  );
+
+  // Registro Casos de Uso (Use Cases)
+  getIt.registerFactory<LoginUser>(
+    () => LoginUser(getIt<AuthRepository>()),
+  );
 }
