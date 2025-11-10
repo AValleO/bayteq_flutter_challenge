@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
       routerConfig: appRouter,
       debugShowCheckedModeBanner: false,
       title: 'Bayteq Flutter Challenge',
-      theme: AppTheme(selectedColorIndex: 1).theme(),
+      theme: AppTheme(selectedColorIndex: 0).theme(),
     );
   }
 }
