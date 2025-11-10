@@ -1,5 +1,5 @@
 import 'package:bayteq_flutter_challenge/config/router/app_router.dart';
-import 'package:bayteq_flutter_challenge/core/theme/app_theme.dart';
+import 'package:bayteq_flutter_challenge/core/core.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
