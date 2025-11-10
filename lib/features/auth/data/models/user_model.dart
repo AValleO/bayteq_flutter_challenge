@@ -17,36 +17,36 @@ class UserModel extends User {
   final CompanyModel company;
   @override
   final CryptoModel crypto;
-
+  
   const UserModel({
     required super.id,
+    required super.username,
     required super.firstName,
     required super.lastName,
-    required super.maidenName,
-    required super.age,
+    required super.image,
     required super.gender,
     required super.email,
-    required super.phone,
-    required super.username,
-    required super.password,
-    required super.birthDate,
-    required super.image,
-    required super.bloodGroup,
-    required super.height,
-    required super.weight,
-    required super.eyeColor,
+    super.maidenName,
+    super.age,
+    super.phone,
+    super.password,
+    super.birthDate,
+    super.bloodGroup,
+    super.height,
+    super.weight,
+    super.eyeColor,
     required this.hair,
-    required super.ip,
+    super.ip,
     required this.address,
-    required super.macAddress,
-    required super.university,
+    super.macAddress,
+    super.university,
     required this.bank,
     required this.company,
-    required super.ein,
-    required super.ssn,
-    required super.userAgent,
+    super.ein,
+    super.ssn,
+    super.userAgent,
     required this.crypto,
-    required super.role,
+    super.role,
   }) : super(
           hair: hair,
           address: address,
@@ -64,8 +64,8 @@ class UserModel extends User {
 @JsonSerializable()
 class HairModel extends Hair {
   const HairModel({
-    required super.color,
-    required super.type,
+    super.color,
+    super.type,
   });
 
   factory HairModel.fromJson(Map<String, dynamic> json) =>
@@ -80,13 +80,13 @@ class AddressModel extends Address {
   final CoordinatesModel coordinates;
 
   const AddressModel({
-    required super.address,
-    required super.city,
-    required super.state,
-    required super.stateCode,
-    required super.postalCode,
+    super.address,
+    super.city,
+    super.state,
+    super.stateCode,
+    super.postalCode,
     required this.coordinates,
-    required super.country,
+    super.country,
   }) : super(coordinates: coordinates);
 
   factory AddressModel.fromJson(Map<String, dynamic> json) =>
@@ -98,8 +98,8 @@ class AddressModel extends Address {
 @JsonSerializable()
 class CoordinatesModel extends Coordinates {
   const CoordinatesModel({
-    required super.lat,
-    required super.lng,
+    super.lat,
+    super.lng,
   });
 
   factory CoordinatesModel.fromJson(Map<String, dynamic> json) =>
@@ -111,11 +111,11 @@ class CoordinatesModel extends Coordinates {
 @JsonSerializable()
 class BankModel extends Bank {
   const BankModel({
-    required super.cardExpire,
-    required super.cardNumber,
-    required super.cardType,
-    required super.currency,
-    required super.iban,
+    super.cardExpire,
+    super.cardNumber,
+    super.cardType,
+    super.currency,
+    super.iban,
   });
 
   factory BankModel.fromJson(Map<String, dynamic> json) =>
@@ -130,9 +130,9 @@ class CompanyModel extends Company {
   final AddressModel address;
 
   const CompanyModel({
-    required super.department,
-    required super.name,
-    required super.title,
+    super.department,
+    super.name,
+    super.title,
     required this.address,
   }) : super(address: address);
 
@@ -145,9 +145,9 @@ class CompanyModel extends Company {
 @JsonSerializable()
 class CryptoModel extends Crypto {
   const CryptoModel({
-    required super.coin,
-    required super.wallet,
-    required super.network,
+    super.coin,
+    super.wallet,
+    super.network,
   });
 
   factory CryptoModel.fromJson(Map<String, dynamic> json) =>

@@ -8,33 +8,33 @@ part of 'user_model.dart';
 
 UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
   id: (json['id'] as num).toInt(),
+  username: json['username'] as String,
   firstName: json['firstName'] as String,
   lastName: json['lastName'] as String,
-  maidenName: json['maidenName'] as String,
-  age: (json['age'] as num).toInt(),
+  image: json['image'] as String,
   gender: json['gender'] as String,
   email: json['email'] as String,
-  phone: json['phone'] as String,
-  username: json['username'] as String,
-  password: json['password'] as String,
-  birthDate: json['birthDate'] as String,
-  image: json['image'] as String,
-  bloodGroup: json['bloodGroup'] as String,
-  height: (json['height'] as num).toDouble(),
-  weight: (json['weight'] as num).toDouble(),
-  eyeColor: json['eyeColor'] as String,
+  maidenName: json['maidenName'] as String? ?? '',
+  age: (json['age'] as num?)?.toInt() ?? 0,
+  phone: json['phone'] as String? ?? '',
+  password: json['password'] as String? ?? '',
+  birthDate: json['birthDate'] as String? ?? '',
+  bloodGroup: json['bloodGroup'] as String? ?? '',
+  height: (json['height'] as num?)?.toDouble() ?? 0.0,
+  weight: (json['weight'] as num?)?.toDouble() ?? 0.0,
+  eyeColor: json['eyeColor'] as String? ?? '',
   hair: HairModel.fromJson(json['hair'] as Map<String, dynamic>),
-  ip: json['ip'] as String,
+  ip: json['ip'] as String? ?? '',
   address: AddressModel.fromJson(json['address'] as Map<String, dynamic>),
-  macAddress: json['macAddress'] as String,
-  university: json['university'] as String,
+  macAddress: json['macAddress'] as String? ?? '',
+  university: json['university'] as String? ?? '',
   bank: BankModel.fromJson(json['bank'] as Map<String, dynamic>),
   company: CompanyModel.fromJson(json['company'] as Map<String, dynamic>),
-  ein: json['ein'] as String,
-  ssn: json['ssn'] as String,
-  userAgent: json['userAgent'] as String,
+  ein: json['ein'] as String? ?? '',
+  ssn: json['ssn'] as String? ?? '',
+  userAgent: json['userAgent'] as String? ?? '',
   crypto: CryptoModel.fromJson(json['crypto'] as Map<String, dynamic>),
-  role: json['role'] as String,
+  role: json['role'] as String? ?? '',
 );
 
 Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
@@ -68,8 +68,10 @@ Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
   'crypto': instance.crypto.toJson(),
 };
 
-HairModel _$HairModelFromJson(Map<String, dynamic> json) =>
-    HairModel(color: json['color'] as String, type: json['type'] as String);
+HairModel _$HairModelFromJson(Map<String, dynamic> json) => HairModel(
+  color: json['color'] as String? ?? '',
+  type: json['type'] as String? ?? '',
+);
 
 Map<String, dynamic> _$HairModelToJson(HairModel instance) => <String, dynamic>{
   'color': instance.color,
@@ -77,15 +79,15 @@ Map<String, dynamic> _$HairModelToJson(HairModel instance) => <String, dynamic>{
 };
 
 AddressModel _$AddressModelFromJson(Map<String, dynamic> json) => AddressModel(
-  address: json['address'] as String,
-  city: json['city'] as String,
-  state: json['state'] as String,
-  stateCode: json['stateCode'] as String,
-  postalCode: json['postalCode'] as String,
+  address: json['address'] as String? ?? '',
+  city: json['city'] as String? ?? '',
+  state: json['state'] as String? ?? '',
+  stateCode: json['stateCode'] as String? ?? '',
+  postalCode: json['postalCode'] as String? ?? '',
   coordinates: CoordinatesModel.fromJson(
     json['coordinates'] as Map<String, dynamic>,
   ),
-  country: json['country'] as String,
+  country: json['country'] as String? ?? '',
 );
 
 Map<String, dynamic> _$AddressModelToJson(AddressModel instance) =>
@@ -101,19 +103,19 @@ Map<String, dynamic> _$AddressModelToJson(AddressModel instance) =>
 
 CoordinatesModel _$CoordinatesModelFromJson(Map<String, dynamic> json) =>
     CoordinatesModel(
-      lat: (json['lat'] as num).toDouble(),
-      lng: (json['lng'] as num).toDouble(),
+      lat: (json['lat'] as num?)?.toDouble() ?? 0.0,
+      lng: (json['lng'] as num?)?.toDouble() ?? 0.0,
     );
 
 Map<String, dynamic> _$CoordinatesModelToJson(CoordinatesModel instance) =>
     <String, dynamic>{'lat': instance.lat, 'lng': instance.lng};
 
 BankModel _$BankModelFromJson(Map<String, dynamic> json) => BankModel(
-  cardExpire: json['cardExpire'] as String,
-  cardNumber: json['cardNumber'] as String,
-  cardType: json['cardType'] as String,
-  currency: json['currency'] as String,
-  iban: json['iban'] as String,
+  cardExpire: json['cardExpire'] as String? ?? '',
+  cardNumber: json['cardNumber'] as String? ?? '',
+  cardType: json['cardType'] as String? ?? '',
+  currency: json['currency'] as String? ?? '',
+  iban: json['iban'] as String? ?? '',
 );
 
 Map<String, dynamic> _$BankModelToJson(BankModel instance) => <String, dynamic>{
@@ -125,9 +127,9 @@ Map<String, dynamic> _$BankModelToJson(BankModel instance) => <String, dynamic>{
 };
 
 CompanyModel _$CompanyModelFromJson(Map<String, dynamic> json) => CompanyModel(
-  department: json['department'] as String,
-  name: json['name'] as String,
-  title: json['title'] as String,
+  department: json['department'] as String? ?? '',
+  name: json['name'] as String? ?? '',
+  title: json['title'] as String? ?? '',
   address: AddressModel.fromJson(json['address'] as Map<String, dynamic>),
 );
 
@@ -140,9 +142,9 @@ Map<String, dynamic> _$CompanyModelToJson(CompanyModel instance) =>
     };
 
 CryptoModel _$CryptoModelFromJson(Map<String, dynamic> json) => CryptoModel(
-  coin: json['coin'] as String,
-  wallet: json['wallet'] as String,
-  network: json['network'] as String,
+  coin: json['coin'] as String? ?? '',
+  wallet: json['wallet'] as String? ?? '',
+  network: json['network'] as String? ?? '',
 );
 
 Map<String, dynamic> _$CryptoModelToJson(CryptoModel instance) =>

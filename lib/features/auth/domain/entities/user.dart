@@ -32,33 +32,33 @@ class User extends Equatable {
 
   const User({
     required this.id,
+    required this.username,
     required this.firstName,
     required this.lastName,
-    required this.maidenName,
-    required this.age,
+    required this.image,
     required this.gender,
     required this.email,
-    required this.phone,
-    required this.username,
-    required this.password,
-    required this.birthDate,
-    required this.image,
-    required this.bloodGroup,
-    required this.height,
-    required this.weight,
-    required this.eyeColor,
-    required this.hair,
-    required this.ip,
-    required this.address,
-    required this.macAddress,
-    required this.university,
-    required this.bank,
-    required this.company,
-    required this.ein,
-    required this.ssn,
-    required this.userAgent,
-    required this.crypto,
-    required this.role,
+    this.maidenName = '',
+    this.age = 0,
+    this.phone = '',
+    this.password = '',
+    this.birthDate = '',
+    this.bloodGroup = '',
+    this.height = 0.0,
+    this.weight = 0.0,
+    this.eyeColor = '',
+    this.hair = const Hair(),
+    this.ip = '',
+    this.address = const Address(coordinates: Coordinates()),
+    this.macAddress = '',
+    this.university = '',
+    this.bank = const Bank(),
+    this.company = const Company(address: Address(coordinates: Coordinates())),
+    this.ein = '',
+    this.ssn = '',
+    this.userAgent = '',
+    this.crypto = const Crypto(),
+    this.role = '',
   });
 
   @override
@@ -99,8 +99,8 @@ class Hair extends Equatable {
   final String type;
 
   const Hair({
-    required this.color,
-    required this.type,
+    this.color = '',
+    this.type = '',
   });
 
   @override
@@ -117,13 +117,13 @@ class Address extends Equatable {
   final String country;
 
   const Address({
-    required this.address,
-    required this.city,
-    required this.state,
-    required this.stateCode,
-    required this.postalCode,
+    this.address = '',
+    this.city = '',
+    this.state = '',
+    this.stateCode = '',
+    this.postalCode = '',
     required this.coordinates,
-    required this.country,
+    this.country = '',
   });
 
   @override
@@ -143,8 +143,8 @@ class Coordinates extends Equatable {
   final double lng;
 
   const Coordinates({
-    required this.lat,
-    required this.lng,
+    this.lat = 0.0,
+    this.lng = 0.0,
   });
 
   @override
@@ -159,11 +159,11 @@ class Bank extends Equatable {
   final String iban;
 
   const Bank({
-    required this.cardExpire,
-    required this.cardNumber,
-    required this.cardType,
-    required this.currency,
-    required this.iban,
+    this.cardExpire = '',
+    this.cardNumber = '',
+    this.cardType = '',
+    this.currency = '',
+    this.iban = '',
   });
 
   @override
@@ -183,9 +183,9 @@ class Company extends Equatable {
   final Address address;
 
   const Company({
-    required this.department,
-    required this.name,
-    required this.title,
+    this.department = '',
+    this.name = '',
+    this.title = '',
     required this.address,
   });
 
@@ -199,9 +199,9 @@ class Crypto extends Equatable {
   final String network;
 
   const Crypto({
-    required this.coin,
-    required this.wallet,
-    required this.network,
+    this.coin = '',
+    this.wallet = '',
+    this.network = '',
   });
 
   @override

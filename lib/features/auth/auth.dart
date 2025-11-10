@@ -3,4 +3,7 @@ export 'presentation/widgets/login_form.dart';
 export 'domain/entities/user.dart';
 export 'domain/repositories/auth_repository.dart';
 export 'data/models/user_model.dart';
-export 'data/datasources/auth_remote_data_source.dart';
+export 'data/datasources/remote/auth_remote_data_source.dart';
+export 'data/datasources/remote/auth_api_service.dart';
+export 'data/dto/request/login_request_dto.dart';
+export 'data/dto/response/login_response_dto.dart';
