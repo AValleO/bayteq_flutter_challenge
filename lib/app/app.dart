@@ -1,3 +1,4 @@
+import 'package:bayteq_flutter_challenge/config/router/app_router.dart';
 import 'package:bayteq_flutter_challenge/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -8,18 +9,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: appRouter,
       debugShowCheckedModeBanner: false,
-      title: 'Material App',
+      title: 'Bayteq Flutter Challenge',
       theme: AppTheme(selectedColorIndex: 1).theme(),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Material App Bar'),
-        ),
-        body: const Center(
-          child: Text('Hello Worlds'),
-        ),
-      ),
     );
   }
 }
