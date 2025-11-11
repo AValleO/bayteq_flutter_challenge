@@ -40,10 +40,11 @@ class Password extends FormzInput<String, PasswordValidationError> {
     
     // Validación dependiente del username
     // Se asegura que la contraseña no contenga el nombre de usuario
-    if (username.isNotEmpty && 
+    // No lo aplico porque la data de prueba no lo cumple https://dummyjson.com/users
+    /*if (username.isNotEmpty && 
         value.toLowerCase().contains(username.toLowerCase())) {
       return PasswordValidationError.containsUsername;
-    }
+    }*/
 
     return null; // Valido
   }

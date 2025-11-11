@@ -29,7 +29,9 @@ class AuthAuthenticated extends AuthState {
 
   final User user;
 
-  const AuthAuthenticated(this.user);
+  AuthAuthenticated(this.user){
+    print('User authenticated: ${user.username}');
+  }
 
   @override
   List<Object> get props => [user];

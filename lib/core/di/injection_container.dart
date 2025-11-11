@@ -29,11 +29,7 @@ Future<void> setupDependencies() async {
     // Añadir interceptores
     dio.interceptors.addAll([
       getIt<AuthInterceptor>(),
-      LogInterceptor(
-        requestBody: true,
-        responseBody: true,
-        error: true,
-      ),
+      LoggingInterceptor(),
     ]);
 
     return dio;

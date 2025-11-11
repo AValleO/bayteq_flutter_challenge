@@ -1,5 +1,5 @@
 export 'presentation/screens/login_screen.dart';
-export 'presentation/widgets/login.dart';
+export 'presentation/widgets/forms/login.dart';
 export 'domain/entities/user.dart';
 export 'domain/repositories/auth_repository.dart';
 export 'domain/usecases/login_user.dart';
@@ -9,3 +9,4 @@ export 'data/datasources/remote/auth_api_service.dart';
 export 'data/dto/request/login_request_dto.dart';
 export 'data/dto/response/login_response_dto.dart';
 export 'data/repositories/auth_repository_impl.dart';
+export 'presentation/bloc/auth_bloc.dart';
