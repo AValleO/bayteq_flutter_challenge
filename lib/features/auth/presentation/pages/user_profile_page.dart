@@ -101,7 +101,7 @@ class UserProfilePage extends StatelessWidget {
                         if (user.age > 0) _buildInfoRow(Icons.cake, 'Edad', '${user.age} años'),
                         if (user.gender.isNotEmpty) ...[
                           const SizedBox(height: 12),
-                          _buildInfoRow(Icons.person, 'Género', user.gender),
+                          _buildInfoRow(Icons.person, 'Género', user.gender == 'female' ? 'Femenino' : 'Masculino'),
                         ],
                         if (user.birthDate.isNotEmpty) ...[
                           const SizedBox(height: 12),
