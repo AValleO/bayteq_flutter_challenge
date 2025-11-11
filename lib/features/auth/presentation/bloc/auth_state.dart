@@ -1,38 +1,22 @@
 part of 'auth_bloc.dart';
 
-sealed class AuthState extends Equatable {
-  const AuthState();
-  
-  @override
-  List<Object> get props => [];
-}
+@freezed
+class AuthState with _$AuthState {
+  const factory AuthState.initial({
+    required LoginForm loginForm,
+  }) = AuthInitial;
 
-class AuthInitial extends AuthState {
+  const factory AuthState.loading() = AuthLoading;
 
-  final LoginForm loginForm;
+  const factory AuthState.authenticated({
+    required User user,
+  }) = AuthAuthenticated;
 
-  const AuthInitial({required this.loginForm});
+  const factory AuthState.unauthenticated({
+    required LoginForm loginForm,
+  }) = AuthUnauthenticated;
 
-  @override
-  List<Object> get props => [loginForm];
-
-  AuthInitial copyWith({
-    LoginForm? loginForm,
-  }) {
-    return AuthInitial(
-      loginForm: loginForm ?? this.loginForm,
-    );
-  }
-}
-
-class AuthAuthenticated extends AuthState {
-
-  final User user;
-
-  AuthAuthenticated(this.user){
-    print('User authenticated: ${user.username}');
-  }
-
-  @override
-  List<Object> get props => [user];
+  const factory AuthState.error({
+    required String message,
+  }) = AuthError;
 }

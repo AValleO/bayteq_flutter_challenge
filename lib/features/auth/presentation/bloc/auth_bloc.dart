@@ -1,11 +1,12 @@
 import 'package:bayteq_flutter_challenge/core/core.dart';
 import 'package:bayteq_flutter_challenge/features/auth/auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
+part 'auth_bloc.freezed.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
@@ -89,7 +90,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             errorMessage: 'Error al iniciar sesión. Inténtalo de nuevo.',
           ),
         )), 
-        (user)=> emit(AuthAuthenticated(user))
+        (user)=> emit(AuthState.authenticated(user: user))
       );
 
     }
