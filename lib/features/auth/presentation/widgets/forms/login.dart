@@ -16,12 +16,33 @@ class Login extends StatelessWidget {
       create: (context) => di.getIt<AuthBloc>(),
       child: SizedBox(
         width: MediaQuery.of(context).size.width * 0.8,
-        child: BlocListener<AuthBloc, AuthState>(
+        child: BlocConsumer<AuthBloc, AuthState>(
+          builder: (context, state) {
+            if(state is! AuthInitial) return const SizedBox();
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              key: ValueKey(state.loginForm.submissionStatus),
+              children: [
+                UsernameField(
+                  errorText: state.loginForm.username.errorMessage,
+                ),
+                SizedBox(height: 10),
+                PasswordField(
+                  errorText: state.loginForm.password.errorMessage,
+                ),
+                SizedBox(height: 20),
+                SubmitButton(
+                  //isLoading: state.loginForm.submissionStatus == FormzSubmissionStatus.inProgress,
+                ),
+              ],
+            );
+          },
           listener: (context, state) {
             if(state is AuthAuthenticated){
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text('Welcome, ${state.user.username}!'),
+                  content: Text('Bienvenid@, ${state.user.username}!'),
                   backgroundColor: Colors.green,
                 ),
               );
@@ -35,15 +56,12 @@ class Login extends StatelessWidget {
                     backgroundColor: Colors.red,
                   ),
                 );
+                // Reiniciar el estado de formulario después de mostrar el error
+                context.read<AuthBloc>().add(const LoginResetForm());
               }
             }
           },
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [UsernameField(), SizedBox(height: 10), PasswordField(), SizedBox(height: 20), SubmitButton()],
-          ),
-        ),
+        )
       ),
     );
   }

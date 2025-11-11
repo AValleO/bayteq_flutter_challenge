@@ -29,3 +29,7 @@ class LoginPasswordChanged extends AuthEvent {
 class LoginSubmitted extends AuthEvent {
   const LoginSubmitted();
 }
+
+class LoginResetForm extends AuthEvent {
+  const LoginResetForm();
+}

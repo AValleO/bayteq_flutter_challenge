@@ -24,6 +24,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<LoginUsernameChanged>(onLoginUsernameChanged);
     on<LoginPasswordChanged>(onLoginPasswordChanged);
     on<LoginSubmitted>(onLoginSubmitted);
+    on<LoginResetForm>(onLoginResetForm);
   }
 
   onLoginUsernameChanged(LoginUsernameChanged event, Emitter<AuthState> emit) {
@@ -85,12 +86,23 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         (failure)=> emit(currentState.copyWith(
           loginForm: currentState.loginForm.copyWith(
             submissionStatus: FormzSubmissionStatus.failure,
-            errorMessage: failure.message,
+            errorMessage: 'Error al iniciar sesión. Inténtalo de nuevo.',
           ),
         )), 
         (user)=> emit(AuthAuthenticated(user))
       );
 
+    }
+  }
+
+  onLoginResetForm(LoginResetForm event, Emitter<AuthState> emit) {
+    final currentState = state;
+    if (currentState is AuthInitial) {
+      final resetForm = LoginForm(
+        username: Username.pure(),
+        password: Password.pure(),
+      );
+      emit(AuthInitial(loginForm: resetForm));
     }
   }
 }
