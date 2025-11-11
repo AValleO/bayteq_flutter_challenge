@@ -16,7 +16,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   AuthBloc({
     required this.loginUserUseCase,
-  }) : super(AuthInitial(
+  }) : super(AuthState.initial(
     loginForm: LoginForm(
       username: Username.pure(),
       password: Password.pure(),
@@ -38,7 +38,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         username: Username.dirty(event.username),
         password: password,
       );
-      emit(AuthInitial(loginForm: updatedForm));
+      emit(AuthState.initial(loginForm: updatedForm));
     }
   }
 
@@ -51,7 +51,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           username: currentState.loginForm.username.value,
         ),
       );
-      emit(AuthInitial(loginForm: updatedForm));
+      emit(AuthState.initial(loginForm: updatedForm));
     }
   }
 
@@ -65,7 +65,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           errorMessage: 'Por favor, corrige los errores en el formulario.',
           hasSubmittedOnce: true,
         );
-        emit(AuthInitial(loginForm: updatedForm));
+        emit(AuthState.initial(loginForm: updatedForm));
         return;
       }
       // Aquí iría la lógica para llamar al caso de uso de login
@@ -74,7 +74,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         submissionStatus: FormzSubmissionStatus.inProgress,
         hasSubmittedOnce: true
       );
-      emit(AuthInitial(loginForm: updatedForm));
+      emit(AuthState.initial(loginForm: updatedForm));
 
       final result = await loginUserUseCase(
         LoginParams(
@@ -103,7 +103,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         username: Username.pure(),
         password: Password.pure(),
       );
-      emit(AuthInitial(loginForm: resetForm));
+      emit(AuthState.initial(loginForm: resetForm));
     }
   }
 }

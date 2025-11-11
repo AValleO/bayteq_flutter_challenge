@@ -18,55 +18,61 @@ class Login extends StatelessWidget {
         width: MediaQuery.of(context).size.width * 0.8,
         child: BlocConsumer<AuthBloc, AuthState>(
           builder: (context, state) {
-            if(state is! AuthInitial) return const SizedBox();
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              key: ValueKey(state.loginForm.submissionStatus),
-              children: [
-                UsernameField(
-                  errorText: state.loginForm.username.errorMessage,
-                ),
-                SizedBox(height: 10),
-                PasswordField(
-                  errorText: state.loginForm.password.errorMessage,
-                ),
-                SizedBox(height: 20),
-                SubmitButton(
-                  isLoading: state.loginForm.submissionStatus == FormzSubmissionStatus.inProgress,
-                  onPressed: (){
-                    return state.loginForm.isValid && state.loginForm.submissionStatus != FormzSubmissionStatus.inProgress
-                      ? context.read<AuthBloc>().add(LoginSubmitted())
-                      : null;
-                  }
-                ),
-              ],
+            return state.maybeWhen(
+              initial: (loginForm) => Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                key: ValueKey(loginForm.submissionStatus),
+                children: [
+                  UsernameField(
+                    errorText: loginForm.username.errorMessage,
+                  ),
+                  const SizedBox(height: 10),
+                  PasswordField(
+                    errorText: loginForm.password.errorMessage,
+                  ),
+                  const SizedBox(height: 20),
+                  SubmitButton(
+                    isLoading: loginForm.submissionStatus == FormzSubmissionStatus.inProgress,
+                    onPressed: () {
+                      return loginForm.isValid && 
+                             loginForm.submissionStatus != FormzSubmissionStatus.inProgress
+                        ? context.read<AuthBloc>().add(const AuthEvent.submitted())
+                        : null;
+                    },
+                  ),
+                ],
+              ),
+              orElse: () => const SizedBox(),
             );
           },
           listener: (context, state) {
-            if(state is AuthAuthenticated){
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('Bienvenid@, ${state.user.username}!'),
-                  backgroundColor: Colors.green,
-                ),
-              );
-              // TODO: Navegar a la pantalla principal
-            }
-            else if(state is AuthInitial) {
-              if (state.loginForm.submissionStatus == FormzSubmissionStatus.failure) {
+            state.maybeWhen(
+              authenticated: (user) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    content: Text(state.loginForm.errorMessage),
-                    backgroundColor: Colors.red,
+                    content: Text('Bienvenid@, ${user.username}!'),
+                    backgroundColor: Colors.green,
                   ),
                 );
-                // Reiniciar el estado de formulario después de mostrar el error
-                context.read<AuthBloc>().add(const LoginResetForm());
-              }
-            }
+                // TODO: Navegar a la pantalla principal
+              },
+              initial: (loginForm) {
+                if (loginForm.submissionStatus == FormzSubmissionStatus.failure) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(loginForm.errorMessage),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
+                  // Reiniciar el estado de formulario después de mostrar el error
+                  context.read<AuthBloc>().add(const AuthEvent.resetForm());
+                }
+              },
+              orElse: () {},
+            );
           },
-        )
+        ),
       ),
     );
   }
