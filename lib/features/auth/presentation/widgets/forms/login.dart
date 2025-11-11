@@ -33,7 +33,12 @@ class Login extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 SubmitButton(
-                  //isLoading: state.loginForm.submissionStatus == FormzSubmissionStatus.inProgress,
+                  isLoading: state.loginForm.submissionStatus == FormzSubmissionStatus.inProgress,
+                  onPressed: (){
+                    return state.loginForm.isValid && state.loginForm.submissionStatus != FormzSubmissionStatus.inProgress
+                      ? context.read<AuthBloc>().add(LoginSubmitted())
+                      : null;
+                  }
                 ),
               ],
             );
