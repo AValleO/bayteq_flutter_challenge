@@ -21,8 +21,8 @@ class HomeScreen extends StatelessWidget {
             color: Theme.of(context).colorScheme.surface,
             child: const TabBar(
               tabs: [
-                Tab(icon: Icon(Icons.person), text: 'Profile'),
-                Tab(icon: Icon(Icons.inventory), text: 'Products'),
+                Tab(icon: Icon(Icons.person), text: 'Perfil'),
+                Tab(icon: Icon(Icons.inventory), text: 'Productos'),
               ],
             ),
           ),
