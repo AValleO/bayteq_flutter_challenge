@@ -22,14 +22,6 @@ Future<void> setupDependencies() async {
     () => AuthLocalDataSourceImpl(getIt<FlutterSecureStorage>()),
   );
 
-  // Registro Data Sources Remotos
-  getIt.registerLazySingleton<AuthRemoteDataSource>(
-    () => AuthRemoteDataSourceImpl(
-      apiService: getIt<AuthApiService>(),
-      localDataSource: getIt<AuthLocalDataSource>(),
-    ),
-  );
-
   // Registro AuthInterceptor con dependencia de DataSource Local
   getIt.registerLazySingleton<AuthInterceptor>(
     () => AuthInterceptor(getIt<AuthLocalDataSource>()),
@@ -59,6 +51,13 @@ Future<void> setupDependencies() async {
   // Registro AuthApiService y otros servicios API
   getIt.registerLazySingleton<AuthApiService>(
     () => AuthApiService(getIt<Dio>()),
+  );
+
+  // Registro Data Sources Remotos
+  getIt.registerLazySingleton<AuthRemoteDataSource>(
+    () => AuthRemoteDataSourceImpl(
+      apiService: getIt<AuthApiService>(),
+    ),
   );
 
   // Registro Repositorios

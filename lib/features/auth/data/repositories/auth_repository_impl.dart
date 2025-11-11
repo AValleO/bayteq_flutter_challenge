@@ -1,6 +1,5 @@
 import 'package:bayteq_flutter_challenge/core/core.dart';
 import 'package:bayteq_flutter_challenge/features/auth/auth.dart';
-import 'package:bayteq_flutter_challenge/features/auth/data/datasources/local/auth_local_data_source.dart';
 import 'package:dartz/dartz.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
@@ -18,10 +17,19 @@ class AuthRepositoryImpl implements AuthRepository {
     required String password,
   }) async {
     try {
-      final userModel = await remoteDataSource.login(
+      // Obtengo el login response desde el data source remoto
+      final loginResponse = await remoteDataSource.login(
         username: username,
         password: password,
       );
+
+      // Guardo los tokens en el almacenamiento local
+      await localDataSource.saveAccessToken(loginResponse.accessToken);
+      await localDataSource.saveRefreshToken(loginResponse.refreshToken);
+
+      // Obtengo el usuario autenticado
+      final userModel = await remoteDataSource.getCurrentUser();
+      
       return Right(userModel);
     } catch (e) {
       return Left(ServerFailure(e.toString()));

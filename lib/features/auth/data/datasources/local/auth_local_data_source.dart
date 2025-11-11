@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:bayteq_flutter_challenge/features/auth/auth.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 /// Data Source Local para manejo de tokens de autenticación
@@ -8,6 +11,9 @@ abstract class AuthLocalDataSource {
   Future<void> saveRefreshToken(String token);
   Future<void> clearTokens();
   Future<bool> hasTokens();
+  Future<void> saveAuthenticatedUser(UserModel user);
+  Future<UserModel?> getAuthenticatedUser();
+  Future<void> clearAuthenticatedUser();
 }
 
 class AuthLocalDataSourceImpl implements AuthLocalDataSource {
@@ -15,6 +21,7 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
 
   static const String _accessTokenKey = 'access_token';
   static const String _refreshTokenKey = 'refresh_token';
+  static const String _authenticatedUserKey = 'authenticated_user';
 
   AuthLocalDataSourceImpl(this.secureStorage);
 
@@ -48,5 +55,25 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
   Future<bool> hasTokens() async {
     final accessToken = await getAccessToken();
     return accessToken != null && accessToken.isNotEmpty;
+  }
+
+  @override
+  Future<void> saveAuthenticatedUser(UserModel user) async {
+    final userJson = user.toJson().toString();
+    await secureStorage.write(key: _authenticatedUserKey, value: userJson);    
+  }
+
+  @override
+  Future<UserModel?> getAuthenticatedUser() async {
+    final userJson = await secureStorage.read(key: _authenticatedUserKey);
+    if (userJson != null) {
+      return UserModel.fromJson(jsonDecode(userJson));
+    }
+    return null;
+  }
+
+  @override
+  Future<void> clearAuthenticatedUser() async {
+    await secureStorage.delete(key: _authenticatedUserKey);
   }
 }
