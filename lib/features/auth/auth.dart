@@ -5,6 +5,7 @@ export 'domain/repositories/auth_repository.dart';
 export 'domain/usecases/login_user.dart';
 export 'data/models/user_model.dart';
 export 'data/datasources/remote/auth_remote_data_source.dart';
+export 'data/datasources/local/auth_local_data_source.dart';
 export 'data/datasources/remote/auth_api_service.dart';
 export 'data/dto/request/login_request_dto.dart';
 export 'data/dto/response/login_response_dto.dart';

@@ -26,7 +26,7 @@ class SubmitButton extends StatelessWidget {
                     color: Colors.white,
                   ),
                 )
-              : Text('Login'),
+              : Text('Acceder'),
         );
       },
     );

@@ -1,25 +1,36 @@
+import 'package:bayteq_flutter_challenge/features/auth/data/datasources/local/auth_local_data_source.dart';
 import 'package:dio/dio.dart';
 
 class AuthInterceptor extends Interceptor {
-  String? _token;
+  final AuthLocalDataSource _localDataSource;
 
-  void setToken(String token) {
-    _token = token;
-  }
-
-  void clearToken() {
-    _token = null;
-  }
-
-  String? get token => _token;
+  AuthInterceptor(this._localDataSource);
 
   @override
-  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    // Inyección de Token en los headers si está disponible
-    if (_token != null) {
-      options.headers['Authorization'] = 'Bearer $_token';
+  void onRequest(
+    RequestOptions options,
+    RequestInterceptorHandler handler,
+  ) async {
+    // Obtener el token de acceso desde el almacenamiento seguro
+    final token = await _localDataSource.getAccessToken();
+
+    // Inyecto el token en los headers de la solicitud si está disponible
+    if (token != null && token.isNotEmpty) {
+      options.headers['Authorization'] = 'Bearer $token';
     }
-    // Continuar con la solicitud
-    super.onRequest(options, handler);
+
+    handler.next(options);
+  }
+
+  @override
+  void onError(DioException err, ErrorInterceptorHandler handler) async {
+    // Manejar errores 401 Unauthorized
+    if (err.response?.statusCode == 401) {
+      // El token podría haber expirado o ser inválido
+      await _localDataSource.clearTokens();
+      // TODO: Implementar la lógica de refresco de token aquí si es necesario
+    }
+
+    handler.next(err);
   }
 }
