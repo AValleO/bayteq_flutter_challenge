@@ -1,5 +1,6 @@
 import 'package:bayteq_flutter_challenge/core/core.dart';
 import 'package:bayteq_flutter_challenge/features/auth/auth.dart';
+import 'package:bayteq_flutter_challenge/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 
@@ -60,5 +61,12 @@ Future<void> setupDependencies() async {
   // Registro Casos de Uso (Use Cases)
   getIt.registerFactory<LoginUser>(
     () => LoginUser(getIt<AuthRepository>()),
+  );
+
+  // Registro Blocs
+  getIt.registerFactory<AuthBloc>(
+    () => AuthBloc(
+      loginUserUseCase: getIt<LoginUser>(),
+    ),
   );
 }
