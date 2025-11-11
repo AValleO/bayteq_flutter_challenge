@@ -1,8 +1,8 @@
 import 'package:bayteq_flutter_challenge/shared/shared.dart';
 import 'package:flutter/material.dart';
 
-class LoginForm extends StatelessWidget {
-  const LoginForm({super.key});
+class Login extends StatelessWidget {
+  const Login({super.key});
 
   @override
   Widget build(BuildContext context) {

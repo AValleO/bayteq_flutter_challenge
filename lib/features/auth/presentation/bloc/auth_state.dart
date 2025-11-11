@@ -7,4 +7,30 @@ sealed class AuthState extends Equatable {
   List<Object> get props => [];
 }
 
-final class AuthInitial extends AuthState {}
+class AuthInitial extends AuthState {
+
+  final LoginForm loginForm;
+
+  const AuthInitial({required this.loginForm});
+
+  @override
+  List<Object> get props => [loginForm];
+
+  AuthInitial copyWith({
+    LoginForm? loginForm,
+  }) {
+    return AuthInitial(
+      loginForm: loginForm ?? this.loginForm,
+    );
+  }
+}
+
+class AuthAuthenticated extends AuthState {
+
+  final User user;
+
+  const AuthAuthenticated(this.user);
+
+  @override
+  List<Object> get props => [user];
+}
