@@ -11,3 +11,4 @@ export 'data/dto/request/login_request_dto.dart';
 export 'data/dto/response/login_response_dto.dart';
 export 'data/repositories/auth_repository_impl.dart';
 export 'presentation/bloc/auth_bloc.dart';
+export 'presentation/pages/user_profile_page.dart';
