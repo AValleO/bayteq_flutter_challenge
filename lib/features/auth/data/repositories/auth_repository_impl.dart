@@ -27,9 +27,9 @@ class AuthRepositoryImpl implements AuthRepository {
       await localDataSource.saveAccessToken(loginResponse.accessToken);
       await localDataSource.saveRefreshToken(loginResponse.refreshToken);
 
-      // Obtengo el usuario autenticado
+      // Obtengo el usuario autenticado y lo guardo en local
       final userModel = await remoteDataSource.getCurrentUser();
-      
+      await localDataSource.saveAuthenticatedUser(userModel);
       return Right(userModel);
     } catch (e) {
       return Left(ServerFailure(e.toString()));
@@ -39,10 +39,21 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<Failure, User>> getCurrentUser() async {
     try {
-      final userModel = await remoteDataSource.getCurrentUser();
-      return Right(userModel);
+      final userModel = await localDataSource.getAuthenticatedUser();
+      if (userModel != null) {
+        return Right(userModel);
+      } else {
+        // Intento obtener el usuario desde el data source remoto si no está en local
+        try {
+          final remoteUserModel = await remoteDataSource.getCurrentUser();
+          await localDataSource.saveAuthenticatedUser(remoteUserModel);
+          return Right(remoteUserModel);          
+        } catch (e) {
+          return Left(ServerFailure(e.toString()));          
+        }
+      }
     } catch (e) {
-      return Left(ServerFailure(e.toString()));
+      return Left(CacheFailure(e.toString()));
     }
   }
 
