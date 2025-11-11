@@ -7,7 +7,6 @@ class PasswordField extends StatelessWidget {
   final String? errorText;
   final String? helperText;
   final border = OutlineInputBorder(
-    //borderSide: BorderSide(color: Colors.blue),
     borderRadius: BorderRadius.circular(40),
   );
 

@@ -20,7 +20,6 @@ class UsernameField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
-    // Hago wrap con BlocBuilder para escuchar cambios en el estado del AuthBloc
     return TextFormField(
       onChanged: (value) {
         print('Usuario: $value');
