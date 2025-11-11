@@ -1,5 +1,6 @@
 
 import 'package:bayteq_flutter_challenge/features/auth/auth.dart';
+import 'package:bayteq_flutter_challenge/features/home/home.dart';
 import 'package:go_router/go_router.dart';
 
 final appRouter = GoRouter(
@@ -7,6 +8,10 @@ final appRouter = GoRouter(
     GoRoute(
       path: '/',
       builder: (context, state) => const LoginScreen(),
+    ),
+    GoRoute(
+      path: '/home',
+      builder: (context, state) => const Home(),
     ),
   ]
 );

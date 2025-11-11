@@ -6,6 +6,7 @@ import 'package:bayteq_flutter_challenge/core/di/injection_container.dart'
     as di;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
+import 'package:go_router/go_router.dart';
 
 class Login extends StatelessWidget {
   const Login({super.key});
@@ -48,14 +49,18 @@ class Login extends StatelessWidget {
           },
           listener: (context, state) {
             state.maybeWhen(
-              authenticated: (user) {
+              authenticated: (user) async {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text('Bienvenid@, ${user.username}!'),
                     backgroundColor: Colors.green,
                   ),
                 );
-                // TODO: Navegar a la pantalla principal
+                // Espero 500ms
+                /*await Future.delayed(const Duration(milliseconds: 500));
+                if (context.mounted) {
+                  context.go('/home');
+                }*/
               },
               initial: (loginForm) {
                 if (loginForm.submissionStatus == FormzSubmissionStatus.failure) {
