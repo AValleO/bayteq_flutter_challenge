@@ -1,5 +1,6 @@
 import 'package:bayteq_flutter_challenge/core/core.dart';
 import 'package:bayteq_flutter_challenge/features/auth/auth.dart';
+import 'package:bayteq_flutter_challenge/features/products/products.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
@@ -59,6 +60,11 @@ Future<void> setupDependencies() async {
       apiService: getIt<AuthApiService>(),
     ),
   );
+  getIt.registerLazySingleton<ProductRemoteDataSource>(
+    () => ProductRemoteDataSourceImpl(
+      apiService: getIt<ProductApiService>(),
+    ),
+  );
 
   // Registro Repositorios
   getIt.registerLazySingleton<AuthRepository>(
@@ -67,16 +73,30 @@ Future<void> setupDependencies() async {
       localDataSource: getIt<AuthLocalDataSource>(),
     ),
   );
+  getIt.registerLazySingleton<ProductRepository>(
+    () => ProductRepositoryImpl(
+      remoteDataSource: getIt<ProductRemoteDataSource>(),
+    ),
+  );
 
   // Registro Casos de Uso
   getIt.registerFactory<LoginUser>(
     () => LoginUser(getIt<AuthRepository>()),
   );
 
+  getIt.registerFactory<GetProducts>(
+    () => GetProducts(getIt<ProductRepository>()),
+  );
+
   // Registro Blocs
   getIt.registerFactory<AuthBloc>(
     () => AuthBloc(
       loginUserUseCase: getIt<LoginUser>(),
+    ),
+  );
+  getIt.registerFactory<ProductBloc>(
+    () => ProductBloc(
+      getProductsUseCase: getIt<GetProducts>(),
     ),
   );
 }

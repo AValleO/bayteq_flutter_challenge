@@ -13,9 +13,9 @@ abstract class ProductRemoteDataSource {
 }
 
 class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
-  final ProductApiService _apiService;
+  final ProductApiService apiService;
 
-  ProductRemoteDataSourceImpl(this._apiService);
+  ProductRemoteDataSourceImpl({required this.apiService});
   
   // const ProductRemoteDataSourceImpl(this._apiService);
 
@@ -24,6 +24,6 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
     required int limit,
     required int skip,
   }) async {
-    return await _apiService.getProducts(limit: limit, skip: skip);
+    return await apiService.getProducts(limit: limit, skip: skip);
   }
 }

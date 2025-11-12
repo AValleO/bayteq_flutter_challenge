@@ -7,9 +7,9 @@ import 'package:dio/dio.dart';
 
 /// Gestiona la obtención de productos y la paginación
 class ProductRepositoryImpl implements ProductRepository {
-  final ProductRemoteDataSource _remoteDataSource;
+  final ProductRemoteDataSource remoteDataSource;
 
-  const ProductRepositoryImpl(this._remoteDataSource);
+  const ProductRepositoryImpl({required this.remoteDataSource});
 
   @override
   Future<Either<Failure, PaginatedProducts>> getProducts({
@@ -17,7 +17,7 @@ class ProductRepositoryImpl implements ProductRepository {
     int skip = 0,
   }) async {
     try {
-      final response = await _remoteDataSource.getProducts(
+      final response = await remoteDataSource.getProducts(
         limit: limit,
         skip: skip,
       );
