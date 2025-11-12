@@ -97,36 +97,56 @@ class _ProductListState extends State<ProductList> {
                 itemBuilder: (context, index) {
                   if (index < allProducts.length) {
                     final product = allProducts[index];
-                    return ListTile(
-                      leading: Image.network(
-                        product.thumbnail,
-                        width: 50,
-                        height: 50,
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) =>
-                            const Icon(Icons.error),
-                      ),
-                      title: Text(product.title),
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            '\$${product.price.toStringAsFixed(2)} - ${product.category}',
-                          ),
-                          const SizedBox(height: 4),
-                          RatingBarIndicator(
-                            rating: product.rating,
-                            itemBuilder: (context, index) => const Icon(
-                              Icons.star,
-                              color: Colors.amber,
+                    return SizedBox(
+                      child: Card(
+                        margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        child: InkWell(
+                          onTap: () {
+                            print('Producto seleccionado: ${product.title}');
+                          },
+                          child: ListTile(
+                            leading: Image.network(
+                              product.thumbnail,
+                              width: 50,
+                              height: 50,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) =>
+                                  const Icon(Icons.error),
                             ),
-                            itemCount: 5,
-                            itemSize: 16.0,
-                            direction: Axis.horizontal,
+                            trailing: IconButton(
+                              icon: const Icon(Icons.arrow_forward_ios),
+                              onPressed: () {
+                                // Acción al presionar el ícono
+                              },
+                            ),
+                            title: Text(
+                              product.title,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  '\$${product.price.toStringAsFixed(2)} - ${product.category}',
+                                ),
+                                const SizedBox(height: 4),
+                                RatingBarIndicator(
+                                  rating: product.rating,
+                                  itemBuilder: (context, index) => const Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                  ),
+                                  itemCount: 5,
+                                  itemSize: 16.0,
+                                  direction: Axis.horizontal,
+                                ),
+                              ],
+                            ),
+                            isThreeLine: true,
                           ),
-                        ],
+                        ),
                       ),
-                      isThreeLine: true,
                     );
                   } else {
                     return const Padding(
