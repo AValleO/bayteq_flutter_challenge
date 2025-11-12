@@ -13,9 +13,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   /// Debo registrar los casos de uso
   /// El Bloc se inicializa con el estado inicial en el container DI
   final LoginUser loginUserUseCase;
+  final LogoutUser logoutUserUseCase;
 
   AuthBloc({
     required this.loginUserUseCase,
+    required this.logoutUserUseCase,
   }) : super(AuthState.initial(
     loginForm: LoginForm(
       username: Username.pure(),
@@ -26,6 +28,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<LoginPasswordChanged>(onLoginPasswordChanged);
     on<LoginSubmitted>(onLoginSubmitted);
     on<LoginResetForm>(onLoginResetForm);
+    on<LoggedOut>(onLoggedOut);
   }
 
   onLoginUsernameChanged(LoginUsernameChanged event, Emitter<AuthState> emit) {
@@ -105,5 +108,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       );
       emit(AuthState.initial(loginForm: resetForm));
     }
+  }
+
+  onLoggedOut(LoggedOut event, Emitter<AuthState> emit) async {
+    await logoutUserUseCase();
+
+    emit(AuthState.initial(
+      loginForm: LoginForm(
+        username: Username.pure(),
+        password: Password.pure(),
+      ),
+    ));
   }
 }

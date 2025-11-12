@@ -1,8 +1,10 @@
 export 'presentation/screens/login_screen.dart';
 export 'presentation/widgets/forms/login.dart';
+export 'presentation/forms/login_form.dart';
 export 'domain/entities/user.dart';
 export 'domain/repositories/auth_repository.dart';
 export 'domain/usecases/login_user.dart';
+export 'domain/usecases/logout_user.dart';
 export 'data/models/user_model.dart';
 export 'data/datasources/remote/auth_remote_data_source.dart';
 export 'data/datasources/local/auth_local_data_source.dart';

@@ -99,6 +99,10 @@ Future<void> setupDependencies() async {
     () => LoginUser(getIt<AuthRepository>()),
   );
 
+  getIt.registerFactory<LogoutUser>(
+    () => LogoutUser(getIt<AuthRepository>()),
+  );
+
   getIt.registerFactory<GetProducts>(
     () => GetProducts(getIt<ProductRepository>()),
   );
@@ -119,6 +123,7 @@ Future<void> setupDependencies() async {
   getIt.registerFactory<AuthBloc>(
     () => AuthBloc(
       loginUserUseCase: getIt<LoginUser>(),
+      logoutUserUseCase: getIt<LogoutUser>(),
     ),
   );
   getIt.registerFactory<ProductBloc>(

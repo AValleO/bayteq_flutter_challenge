@@ -16,30 +16,7 @@ class Login extends StatelessWidget {
       child: BlocConsumer<AuthBloc, AuthState>(
         builder: (context, state) {
           return state.maybeWhen(
-            initial: (loginForm) => Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              key: ValueKey(loginForm.submissionStatus),
-              children: [
-                UsernameField(
-                  errorText: loginForm.username.errorMessage,
-                ),
-                const SizedBox(height: 10),
-                PasswordField(
-                  errorText: loginForm.password.errorMessage,
-                ),
-                const SizedBox(height: 20),
-                SubmitButton(
-                  isLoading: loginForm.submissionStatus == FormzSubmissionStatus.inProgress,
-                  onPressed: () {
-                    return loginForm.isValid && 
-                           loginForm.submissionStatus != FormzSubmissionStatus.inProgress
-                      ? context.read<AuthBloc>().add(const AuthEvent.submitted())
-                      : null;
-                  },
-                ),
-              ],
-            ),
+            initial: (loginForm) => _buildLoginForm(context, loginForm),
             orElse: () => const SizedBox(),
           );
         },
@@ -70,6 +47,33 @@ class Login extends StatelessWidget {
           );
         },
       ),
+    );
+  }
+
+  Widget _buildLoginForm(BuildContext context, LoginForm loginForm) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      key: ValueKey(loginForm.submissionStatus),
+      children: [
+        UsernameField(
+          errorText: loginForm.username.errorMessage,
+        ),
+        const SizedBox(height: 10),
+        PasswordField(
+          errorText: loginForm.password.errorMessage,
+        ),
+        const SizedBox(height: 20),
+        SubmitButton(
+          isLoading: loginForm.submissionStatus == FormzSubmissionStatus.inProgress,
+          onPressed: () {
+            return loginForm.isValid && 
+                   loginForm.submissionStatus != FormzSubmissionStatus.inProgress
+              ? context.read<AuthBloc>().add(const AuthEvent.submitted())
+              : null;
+          },
+        ),
+      ],
     );
   }
 }

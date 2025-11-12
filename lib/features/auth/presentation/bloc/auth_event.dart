@@ -10,4 +10,6 @@ class AuthEvent with _$AuthEvent {
   const factory AuthEvent.submitted() = LoginSubmitted;
   
   const factory AuthEvent.resetForm() = LoginResetForm;
+
+  const factory AuthEvent.loggedOut() = LoggedOut;
 }

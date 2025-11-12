@@ -1,6 +1,7 @@
 import 'package:bayteq_flutter_challenge/features/auth/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class UserProfilePage extends StatelessWidget {
   const UserProfilePage({super.key});
@@ -9,11 +10,28 @@ class UserProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
-        // TODO: Manejar estados de error o carga si fuera necesario
+        state.maybeWhen(
+          initial: (loginForm) {
+            // Navegar al login cuando el usuario cierra sesión
+            context.go('/');
+          },
+          orElse: () {},
+        );
       },
       builder: (context, state) {
-        return state.maybeWhen(
-          authenticated: (user) => SingleChildScrollView(
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text('Mi Perfil'),
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.logout),
+                tooltip: 'Cerrar sesión',
+                onPressed: () => _showLogoutDialog(context),
+              ),
+            ],
+          ),
+          body: state.maybeWhen(
+            authenticated: (user) => SingleChildScrollView(
             padding: const EdgeInsets.all(16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -188,10 +206,37 @@ class UserProfilePage extends StatelessWidget {
                   ),
               ],
             ),
+            ),
+            orElse: () => const Center(child: Text('Usuario no autenticado')),
           ),
-          orElse: () => const Center(child: Text('Usuario no autenticado')),
         );
       },
+    );
+  }
+
+  void _showLogoutDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Cerrar Sesión'),
+        content: const Text('¿Estás seguro de que deseas cerrar sesión?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(),
+            child: const Text('Cancelar'),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(dialogContext).pop();
+              context.read<AuthBloc>().add(const AuthEvent.loggedOut());
+            },
+            style: TextButton.styleFrom(
+              foregroundColor: Colors.red,
+            ),
+            child: const Text('Cerrar Sesión'),
+          ),
+        ],
+      ),
     );
   }
 

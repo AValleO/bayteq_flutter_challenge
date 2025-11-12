@@ -23,6 +23,7 @@ mixin _$AuthEvent {
     required TResult Function(String password) passwordChanged,
     required TResult Function() submitted,
     required TResult Function() resetForm,
+    required TResult Function() loggedOut,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
@@ -30,6 +31,7 @@ mixin _$AuthEvent {
     TResult? Function(String password)? passwordChanged,
     TResult? Function()? submitted,
     TResult? Function()? resetForm,
+    TResult? Function()? loggedOut,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
@@ -37,6 +39,7 @@ mixin _$AuthEvent {
     TResult Function(String password)? passwordChanged,
     TResult Function()? submitted,
     TResult Function()? resetForm,
+    TResult Function()? loggedOut,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -45,6 +48,7 @@ mixin _$AuthEvent {
     required TResult Function(LoginPasswordChanged value) passwordChanged,
     required TResult Function(LoginSubmitted value) submitted,
     required TResult Function(LoginResetForm value) resetForm,
+    required TResult Function(LoggedOut value) loggedOut,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
@@ -52,6 +56,7 @@ mixin _$AuthEvent {
     TResult? Function(LoginPasswordChanged value)? passwordChanged,
     TResult? Function(LoginSubmitted value)? submitted,
     TResult? Function(LoginResetForm value)? resetForm,
+    TResult? Function(LoggedOut value)? loggedOut,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
@@ -59,6 +64,7 @@ mixin _$AuthEvent {
     TResult Function(LoginPasswordChanged value)? passwordChanged,
     TResult Function(LoginSubmitted value)? submitted,
     TResult Function(LoginResetForm value)? resetForm,
+    TResult Function(LoggedOut value)? loggedOut,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
 }
@@ -162,6 +168,7 @@ class _$LoginUsernameChangedImpl implements LoginUsernameChanged {
     required TResult Function(String password) passwordChanged,
     required TResult Function() submitted,
     required TResult Function() resetForm,
+    required TResult Function() loggedOut,
   }) {
     return usernameChanged(username);
   }
@@ -173,6 +180,7 @@ class _$LoginUsernameChangedImpl implements LoginUsernameChanged {
     TResult? Function(String password)? passwordChanged,
     TResult? Function()? submitted,
     TResult? Function()? resetForm,
+    TResult? Function()? loggedOut,
   }) {
     return usernameChanged?.call(username);
   }
@@ -184,6 +192,7 @@ class _$LoginUsernameChangedImpl implements LoginUsernameChanged {
     TResult Function(String password)? passwordChanged,
     TResult Function()? submitted,
     TResult Function()? resetForm,
+    TResult Function()? loggedOut,
     required TResult orElse(),
   }) {
     if (usernameChanged != null) {
@@ -199,6 +208,7 @@ class _$LoginUsernameChangedImpl implements LoginUsernameChanged {
     required TResult Function(LoginPasswordChanged value) passwordChanged,
     required TResult Function(LoginSubmitted value) submitted,
     required TResult Function(LoginResetForm value) resetForm,
+    required TResult Function(LoggedOut value) loggedOut,
   }) {
     return usernameChanged(this);
   }
@@ -210,6 +220,7 @@ class _$LoginUsernameChangedImpl implements LoginUsernameChanged {
     TResult? Function(LoginPasswordChanged value)? passwordChanged,
     TResult? Function(LoginSubmitted value)? submitted,
     TResult? Function(LoginResetForm value)? resetForm,
+    TResult? Function(LoggedOut value)? loggedOut,
   }) {
     return usernameChanged?.call(this);
   }
@@ -221,6 +232,7 @@ class _$LoginUsernameChangedImpl implements LoginUsernameChanged {
     TResult Function(LoginPasswordChanged value)? passwordChanged,
     TResult Function(LoginSubmitted value)? submitted,
     TResult Function(LoginResetForm value)? resetForm,
+    TResult Function(LoggedOut value)? loggedOut,
     required TResult orElse(),
   }) {
     if (usernameChanged != null) {
@@ -322,6 +334,7 @@ class _$LoginPasswordChangedImpl implements LoginPasswordChanged {
     required TResult Function(String password) passwordChanged,
     required TResult Function() submitted,
     required TResult Function() resetForm,
+    required TResult Function() loggedOut,
   }) {
     return passwordChanged(password);
   }
@@ -333,6 +346,7 @@ class _$LoginPasswordChangedImpl implements LoginPasswordChanged {
     TResult? Function(String password)? passwordChanged,
     TResult? Function()? submitted,
     TResult? Function()? resetForm,
+    TResult? Function()? loggedOut,
   }) {
     return passwordChanged?.call(password);
   }
@@ -344,6 +358,7 @@ class _$LoginPasswordChangedImpl implements LoginPasswordChanged {
     TResult Function(String password)? passwordChanged,
     TResult Function()? submitted,
     TResult Function()? resetForm,
+    TResult Function()? loggedOut,
     required TResult orElse(),
   }) {
     if (passwordChanged != null) {
@@ -359,6 +374,7 @@ class _$LoginPasswordChangedImpl implements LoginPasswordChanged {
     required TResult Function(LoginPasswordChanged value) passwordChanged,
     required TResult Function(LoginSubmitted value) submitted,
     required TResult Function(LoginResetForm value) resetForm,
+    required TResult Function(LoggedOut value) loggedOut,
   }) {
     return passwordChanged(this);
   }
@@ -370,6 +386,7 @@ class _$LoginPasswordChangedImpl implements LoginPasswordChanged {
     TResult? Function(LoginPasswordChanged value)? passwordChanged,
     TResult? Function(LoginSubmitted value)? submitted,
     TResult? Function(LoginResetForm value)? resetForm,
+    TResult? Function(LoggedOut value)? loggedOut,
   }) {
     return passwordChanged?.call(this);
   }
@@ -381,6 +398,7 @@ class _$LoginPasswordChangedImpl implements LoginPasswordChanged {
     TResult Function(LoginPasswordChanged value)? passwordChanged,
     TResult Function(LoginSubmitted value)? submitted,
     TResult Function(LoginResetForm value)? resetForm,
+    TResult Function(LoggedOut value)? loggedOut,
     required TResult orElse(),
   }) {
     if (passwordChanged != null) {
@@ -450,6 +468,7 @@ class _$LoginSubmittedImpl implements LoginSubmitted {
     required TResult Function(String password) passwordChanged,
     required TResult Function() submitted,
     required TResult Function() resetForm,
+    required TResult Function() loggedOut,
   }) {
     return submitted();
   }
@@ -461,6 +480,7 @@ class _$LoginSubmittedImpl implements LoginSubmitted {
     TResult? Function(String password)? passwordChanged,
     TResult? Function()? submitted,
     TResult? Function()? resetForm,
+    TResult? Function()? loggedOut,
   }) {
     return submitted?.call();
   }
@@ -472,6 +492,7 @@ class _$LoginSubmittedImpl implements LoginSubmitted {
     TResult Function(String password)? passwordChanged,
     TResult Function()? submitted,
     TResult Function()? resetForm,
+    TResult Function()? loggedOut,
     required TResult orElse(),
   }) {
     if (submitted != null) {
@@ -487,6 +508,7 @@ class _$LoginSubmittedImpl implements LoginSubmitted {
     required TResult Function(LoginPasswordChanged value) passwordChanged,
     required TResult Function(LoginSubmitted value) submitted,
     required TResult Function(LoginResetForm value) resetForm,
+    required TResult Function(LoggedOut value) loggedOut,
   }) {
     return submitted(this);
   }
@@ -498,6 +520,7 @@ class _$LoginSubmittedImpl implements LoginSubmitted {
     TResult? Function(LoginPasswordChanged value)? passwordChanged,
     TResult? Function(LoginSubmitted value)? submitted,
     TResult? Function(LoginResetForm value)? resetForm,
+    TResult? Function(LoggedOut value)? loggedOut,
   }) {
     return submitted?.call(this);
   }
@@ -509,6 +532,7 @@ class _$LoginSubmittedImpl implements LoginSubmitted {
     TResult Function(LoginPasswordChanged value)? passwordChanged,
     TResult Function(LoginSubmitted value)? submitted,
     TResult Function(LoginResetForm value)? resetForm,
+    TResult Function(LoggedOut value)? loggedOut,
     required TResult orElse(),
   }) {
     if (submitted != null) {
@@ -569,6 +593,7 @@ class _$LoginResetFormImpl implements LoginResetForm {
     required TResult Function(String password) passwordChanged,
     required TResult Function() submitted,
     required TResult Function() resetForm,
+    required TResult Function() loggedOut,
   }) {
     return resetForm();
   }
@@ -580,6 +605,7 @@ class _$LoginResetFormImpl implements LoginResetForm {
     TResult? Function(String password)? passwordChanged,
     TResult? Function()? submitted,
     TResult? Function()? resetForm,
+    TResult? Function()? loggedOut,
   }) {
     return resetForm?.call();
   }
@@ -591,6 +617,7 @@ class _$LoginResetFormImpl implements LoginResetForm {
     TResult Function(String password)? passwordChanged,
     TResult Function()? submitted,
     TResult Function()? resetForm,
+    TResult Function()? loggedOut,
     required TResult orElse(),
   }) {
     if (resetForm != null) {
@@ -606,6 +633,7 @@ class _$LoginResetFormImpl implements LoginResetForm {
     required TResult Function(LoginPasswordChanged value) passwordChanged,
     required TResult Function(LoginSubmitted value) submitted,
     required TResult Function(LoginResetForm value) resetForm,
+    required TResult Function(LoggedOut value) loggedOut,
   }) {
     return resetForm(this);
   }
@@ -617,6 +645,7 @@ class _$LoginResetFormImpl implements LoginResetForm {
     TResult? Function(LoginPasswordChanged value)? passwordChanged,
     TResult? Function(LoginSubmitted value)? submitted,
     TResult? Function(LoginResetForm value)? resetForm,
+    TResult? Function(LoggedOut value)? loggedOut,
   }) {
     return resetForm?.call(this);
   }
@@ -628,6 +657,7 @@ class _$LoginResetFormImpl implements LoginResetForm {
     TResult Function(LoginPasswordChanged value)? passwordChanged,
     TResult Function(LoginSubmitted value)? submitted,
     TResult Function(LoginResetForm value)? resetForm,
+    TResult Function(LoggedOut value)? loggedOut,
     required TResult orElse(),
   }) {
     if (resetForm != null) {
@@ -639,6 +669,131 @@ class _$LoginResetFormImpl implements LoginResetForm {
 
 abstract class LoginResetForm implements AuthEvent {
   const factory LoginResetForm() = _$LoginResetFormImpl;
+}
+
+/// @nodoc
+abstract class _$$LoggedOutImplCopyWith<$Res> {
+  factory _$$LoggedOutImplCopyWith(
+    _$LoggedOutImpl value,
+    $Res Function(_$LoggedOutImpl) then,
+  ) = __$$LoggedOutImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$LoggedOutImplCopyWithImpl<$Res>
+    extends _$AuthEventCopyWithImpl<$Res, _$LoggedOutImpl>
+    implements _$$LoggedOutImplCopyWith<$Res> {
+  __$$LoggedOutImplCopyWithImpl(
+    _$LoggedOutImpl _value,
+    $Res Function(_$LoggedOutImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of AuthEvent
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$LoggedOutImpl implements LoggedOut {
+  const _$LoggedOutImpl();
+
+  @override
+  String toString() {
+    return 'AuthEvent.loggedOut()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$LoggedOutImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String username) usernameChanged,
+    required TResult Function(String password) passwordChanged,
+    required TResult Function() submitted,
+    required TResult Function() resetForm,
+    required TResult Function() loggedOut,
+  }) {
+    return loggedOut();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String username)? usernameChanged,
+    TResult? Function(String password)? passwordChanged,
+    TResult? Function()? submitted,
+    TResult? Function()? resetForm,
+    TResult? Function()? loggedOut,
+  }) {
+    return loggedOut?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String username)? usernameChanged,
+    TResult Function(String password)? passwordChanged,
+    TResult Function()? submitted,
+    TResult Function()? resetForm,
+    TResult Function()? loggedOut,
+    required TResult orElse(),
+  }) {
+    if (loggedOut != null) {
+      return loggedOut();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(LoginUsernameChanged value) usernameChanged,
+    required TResult Function(LoginPasswordChanged value) passwordChanged,
+    required TResult Function(LoginSubmitted value) submitted,
+    required TResult Function(LoginResetForm value) resetForm,
+    required TResult Function(LoggedOut value) loggedOut,
+  }) {
+    return loggedOut(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(LoginUsernameChanged value)? usernameChanged,
+    TResult? Function(LoginPasswordChanged value)? passwordChanged,
+    TResult? Function(LoginSubmitted value)? submitted,
+    TResult? Function(LoginResetForm value)? resetForm,
+    TResult? Function(LoggedOut value)? loggedOut,
+  }) {
+    return loggedOut?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(LoginUsernameChanged value)? usernameChanged,
+    TResult Function(LoginPasswordChanged value)? passwordChanged,
+    TResult Function(LoginSubmitted value)? submitted,
+    TResult Function(LoginResetForm value)? resetForm,
+    TResult Function(LoggedOut value)? loggedOut,
+    required TResult orElse(),
+  }) {
+    if (loggedOut != null) {
+      return loggedOut(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class LoggedOut implements AuthEvent {
+  const factory LoggedOut() = _$LoggedOutImpl;
 }
 
 /// @nodoc
