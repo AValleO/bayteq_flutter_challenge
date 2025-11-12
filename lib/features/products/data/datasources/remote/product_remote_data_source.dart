@@ -10,6 +10,21 @@ abstract class ProductRemoteDataSource {
     required int limit,
     required int skip,
   });
+
+  /// Obtener un producto por ID
+  Future<ProductDto> getProductById(int id);
+
+  /// Actualizar un producto
+  Future<ProductDto> updateProduct({
+    required int id,
+    required String title,
+    required double price,
+    required String description,
+    required String category,
+  });
+
+  /// Eliminar un producto
+  Future<void> deleteProduct(int id);
 }
 
 class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
@@ -25,5 +40,34 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
     required int skip,
   }) async {
     return await apiService.getProducts(limit: limit, skip: skip);
+  }
+
+  @override
+  Future<ProductDto> getProductById(int id) async {
+    return await apiService.getProductById(id);
+  }
+
+  @override
+  Future<ProductDto> updateProduct({
+    required int id,
+    required String title,
+    required double price,
+    required String description,
+    required String category,
+  }) async {
+    return await apiService.updateProduct(
+      id: id,
+      data: {
+        'title': title,
+        'price': price,
+        'description': description,
+        'category': category,
+      },
+    );
+  }
+
+  @override
+  Future<void> deleteProduct(int id) async {
+    await apiService.deleteProduct(id);
   }
 }

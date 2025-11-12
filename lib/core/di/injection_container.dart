@@ -91,6 +91,18 @@ Future<void> setupDependencies() async {
     () => GetProducts(getIt<ProductRepository>()),
   );
 
+  getIt.registerFactory<GetProductById>(
+    () => GetProductById(getIt<ProductRepository>()),
+  );
+
+  getIt.registerFactory<UpdateProduct>(
+    () => UpdateProduct(getIt<ProductRepository>()),
+  );
+
+  getIt.registerFactory<DeleteProduct>(
+    () => DeleteProduct(getIt<ProductRepository>()),
+  );
+
   // Registro Blocs
   getIt.registerFactory<AuthBloc>(
     () => AuthBloc(
@@ -100,6 +112,13 @@ Future<void> setupDependencies() async {
   getIt.registerFactory<ProductBloc>(
     () => ProductBloc(
       getProductsUseCase: getIt<GetProducts>(),
+    ),
+  );
+  getIt.registerFactory<ProductDetailBloc>(
+    () => ProductDetailBloc(
+      getProductByIdUseCase: getIt<GetProductById>(),
+      updateProductUseCase: getIt<UpdateProduct>(),
+      deleteProductUseCase: getIt<DeleteProduct>(),
     ),
   );
 }

@@ -10,4 +10,13 @@ abstract class ProductRepository {
     int limit = 10,
     int skip = 0,
   });
+
+  /// Obtener un producto por ID
+  Future<Either<Failure, Product>> getProductById(int id);
+
+  /// Actualizar un producto existente
+  Future<Either<Failure, Product>> updateProduct(Product product);
+
+  /// Eliminar un producto por ID
+  Future<Either<Failure, void>> deleteProduct(int id);
 }

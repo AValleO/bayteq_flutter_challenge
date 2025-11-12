@@ -39,4 +39,48 @@ class ProductRepositoryImpl implements ProductRepository {
       return Left(ServerFailure(e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, Product>> getProductById(int id) async {
+    try {
+      final dto = await remoteDataSource.getProductById(id);
+      final product = dto.toModel() as Product;
+      return Right(product);
+    } on DioException catch (e) {
+      return Left(ServerFailure(e.message ?? 'Server error'));
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Product>> updateProduct(Product product) async {
+    try {
+      final dto = await remoteDataSource.updateProduct(
+        id: product.id,
+        title: product.title,
+        price: product.price,
+        description: product.description,
+        category: product.category,
+      );
+      final updatedProduct = dto.toModel() as Product;
+      return Right(updatedProduct);
+    } on DioException catch (e) {
+      return Left(ServerFailure(e.message ?? 'Server error'));
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> deleteProduct(int id) async {
+    try {
+      await remoteDataSource.deleteProduct(id);
+      return const Right(null);
+    } on DioException catch (e) {
+      return Left(ServerFailure(e.message ?? 'Server error'));
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
 }

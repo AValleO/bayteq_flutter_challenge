@@ -17,4 +17,19 @@ abstract class ProductApiService {
     @Query('skip') int skip = 0,
     @Query('select') String? select = 'title,price,description,category,rating,thumbnail',
   });
+
+  /// Obtener un producto por ID
+  @GET('/products/{id}')
+  Future<ProductDto> getProductById(@Path('id') int id);
+
+  /// Actualizar un producto
+  @PUT('/products/{id}')
+  Future<ProductDto> updateProduct({
+    @Path('id') required int id,
+    @Body() required Map<String, dynamic> data,
+  });
+
+  /// Eliminar un producto
+  @DELETE('/products/{id}')
+  Future<void> deleteProduct(@Path('id') int id);
 }
