@@ -2,6 +2,7 @@ import 'package:bayteq_flutter_challenge/features/products/products.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:go_router/go_router.dart';
 
 // Lo defino como StatefulWidget para manejar el ScrollController
 class ProductList extends StatefulWidget {
@@ -104,6 +105,9 @@ class _ProductListState extends State<ProductList> {
                         child: InkWell(
                           onTap: () {
                             print('Producto seleccionado: ${product.title}');
+                            // Navego hacia la pantalla de detalle del producto
+                            // enviando el ID del producto
+                            context.push('/products/${product.id}');
                           },
                           child: ListTile(
                             leading: Image.network(

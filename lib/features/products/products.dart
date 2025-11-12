@@ -19,4 +19,5 @@ export 'presentation/forms/inputs/product_description.dart';
 export 'presentation/forms/inputs/product_price.dart';
 export 'presentation/forms/inputs/product_category.dart';
 export 'presentation/forms/product_form.dart';
+export 'presentation/screens/product_detail_screen.dart';
 
