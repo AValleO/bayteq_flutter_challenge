@@ -4,6 +4,6 @@ part of 'product_bloc.dart';
 class ProductEvent with _$ProductEvent {
   const factory ProductEvent.loadFirstPage() = LoadFirstPage;
   const factory ProductEvent.loadNextPage() = LoadNextPage;
-  const factory ProductEvent.refreshProducts() = RefreshProducts;
+  const factory ProductEvent.refreshProducts({@Default(false) bool forceRefresh}) = RefreshProducts;
   const factory ProductEvent.retryPagination() = RetryPagination;
 }

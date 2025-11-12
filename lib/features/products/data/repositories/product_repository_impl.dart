@@ -21,6 +21,7 @@ class ProductRepositoryImpl implements ProductRepository {
   Future<Either<Failure, PaginatedProducts>> getProducts({
     int limit = 10,
     int skip = 0,
+    bool forceRefresh = false,
   }) async {
     try {
       // Estrategia: Primero intentar obtener de la red, luego cachear
@@ -33,7 +34,7 @@ class ProductRepositoryImpl implements ProductRepository {
           final cachedProducts = await localDataSource.getCachedProducts();
           if (cachedProducts.isNotEmpty) {
             // Retornar productos cacheados mientras actualizamos en background
-            _refreshCacheInBackground(limit, skip);
+            if(forceRefresh) _refreshCacheInBackground(10, 0);
             
             final paginatedResult = PaginatedProducts(
               products: cachedProducts,

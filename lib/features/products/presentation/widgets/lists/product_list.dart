@@ -14,7 +14,6 @@ class ProductList extends StatefulWidget {
 
 class _ProductListState extends State<ProductList> {
   final ScrollController _scrollController = ScrollController();
-  bool _isFirstLoad = true;
 
   @override
   void initState() {
@@ -24,16 +23,6 @@ class _ProductListState extends State<ProductList> {
     
     // Configuro el listener para scroll infinito
     _scrollController.addListener(_onScroll);
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    // Refresco desde caché cuando vuelvo a esta pantalla (excepto la primera carga)
-    if (!_isFirstLoad) {
-      context.read<ProductBloc>().add(const ProductEvent.refreshProducts());
-    }
-    _isFirstLoad = false;
   }
 
   @override
@@ -100,7 +89,7 @@ class _ProductListState extends State<ProductList> {
           loaded: (paginatedProducts, allProducts, isLoadingMore, paginationError) {
             return RefreshIndicator(
               onRefresh: () async {
-                context.read<ProductBloc>().add(const ProductEvent.refreshProducts());
+                context.read<ProductBloc>().add(const ProductEvent.refreshProducts(forceRefresh: true));
                 await Future.delayed(const Duration(milliseconds: 500));
               },
               child: ListView.builder(
@@ -114,11 +103,15 @@ class _ProductListState extends State<ProductList> {
                       child: Card(
                         margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                         child: InkWell(
-                          onTap: () {
+                          onTap: () async {
                             print('Producto seleccionado: ${product.title}');
                             // Navego hacia la pantalla de detalle del producto
                             // enviando el ID del producto
-                            context.push('/products/${product.id}');
+                            await context.push('/products/${product.id}');
+                            // Refresco la lista desde caché cuando regreso
+                            if (mounted) {
+                              context.read<ProductBloc>().add(const ProductEvent.refreshProducts());
+                            }
                           },
                           child: ListTile(
                             leading: Image.network(

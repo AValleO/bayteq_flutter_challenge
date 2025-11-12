@@ -21,21 +21,21 @@ mixin _$ProductEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() loadFirstPage,
     required TResult Function() loadNextPage,
-    required TResult Function() refreshProducts,
+    required TResult Function(bool forceRefresh) refreshProducts,
     required TResult Function() retryPagination,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loadFirstPage,
     TResult? Function()? loadNextPage,
-    TResult? Function()? refreshProducts,
+    TResult? Function(bool forceRefresh)? refreshProducts,
     TResult? Function()? retryPagination,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loadFirstPage,
     TResult Function()? loadNextPage,
-    TResult Function()? refreshProducts,
+    TResult Function(bool forceRefresh)? refreshProducts,
     TResult Function()? retryPagination,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
@@ -130,7 +130,7 @@ class _$LoadFirstPageImpl implements LoadFirstPage {
   TResult when<TResult extends Object?>({
     required TResult Function() loadFirstPage,
     required TResult Function() loadNextPage,
-    required TResult Function() refreshProducts,
+    required TResult Function(bool forceRefresh) refreshProducts,
     required TResult Function() retryPagination,
   }) {
     return loadFirstPage();
@@ -141,7 +141,7 @@ class _$LoadFirstPageImpl implements LoadFirstPage {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loadFirstPage,
     TResult? Function()? loadNextPage,
-    TResult? Function()? refreshProducts,
+    TResult? Function(bool forceRefresh)? refreshProducts,
     TResult? Function()? retryPagination,
   }) {
     return loadFirstPage?.call();
@@ -152,7 +152,7 @@ class _$LoadFirstPageImpl implements LoadFirstPage {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loadFirstPage,
     TResult Function()? loadNextPage,
-    TResult Function()? refreshProducts,
+    TResult Function(bool forceRefresh)? refreshProducts,
     TResult Function()? retryPagination,
     required TResult orElse(),
   }) {
@@ -249,7 +249,7 @@ class _$LoadNextPageImpl implements LoadNextPage {
   TResult when<TResult extends Object?>({
     required TResult Function() loadFirstPage,
     required TResult Function() loadNextPage,
-    required TResult Function() refreshProducts,
+    required TResult Function(bool forceRefresh) refreshProducts,
     required TResult Function() retryPagination,
   }) {
     return loadNextPage();
@@ -260,7 +260,7 @@ class _$LoadNextPageImpl implements LoadNextPage {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loadFirstPage,
     TResult? Function()? loadNextPage,
-    TResult? Function()? refreshProducts,
+    TResult? Function(bool forceRefresh)? refreshProducts,
     TResult? Function()? retryPagination,
   }) {
     return loadNextPage?.call();
@@ -271,7 +271,7 @@ class _$LoadNextPageImpl implements LoadNextPage {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loadFirstPage,
     TResult Function()? loadNextPage,
-    TResult Function()? refreshProducts,
+    TResult Function(bool forceRefresh)? refreshProducts,
     TResult Function()? retryPagination,
     required TResult orElse(),
   }) {
@@ -329,6 +329,8 @@ abstract class _$$RefreshProductsImplCopyWith<$Res> {
     _$RefreshProductsImpl value,
     $Res Function(_$RefreshProductsImpl) then,
   ) = __$$RefreshProductsImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool forceRefresh});
 }
 
 /// @nodoc
@@ -342,36 +344,66 @@ class __$$RefreshProductsImplCopyWithImpl<$Res>
 
   /// Create a copy of ProductEvent
   /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? forceRefresh = null}) {
+    return _then(
+      _$RefreshProductsImpl(
+        forceRefresh: null == forceRefresh
+            ? _value.forceRefresh
+            : forceRefresh // ignore: cast_nullable_to_non_nullable
+                  as bool,
+      ),
+    );
+  }
 }
 
 /// @nodoc
 
 class _$RefreshProductsImpl implements RefreshProducts {
-  const _$RefreshProductsImpl();
+  const _$RefreshProductsImpl({this.forceRefresh = false});
+
+  @override
+  @JsonKey()
+  final bool forceRefresh;
 
   @override
   String toString() {
-    return 'ProductEvent.refreshProducts()';
+    return 'ProductEvent.refreshProducts(forceRefresh: $forceRefresh)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$RefreshProductsImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$RefreshProductsImpl &&
+            (identical(other.forceRefresh, forceRefresh) ||
+                other.forceRefresh == forceRefresh));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, forceRefresh);
+
+  /// Create a copy of ProductEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RefreshProductsImplCopyWith<_$RefreshProductsImpl> get copyWith =>
+      __$$RefreshProductsImplCopyWithImpl<_$RefreshProductsImpl>(
+        this,
+        _$identity,
+      );
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loadFirstPage,
     required TResult Function() loadNextPage,
-    required TResult Function() refreshProducts,
+    required TResult Function(bool forceRefresh) refreshProducts,
     required TResult Function() retryPagination,
   }) {
-    return refreshProducts();
+    return refreshProducts(forceRefresh);
   }
 
   @override
@@ -379,10 +411,10 @@ class _$RefreshProductsImpl implements RefreshProducts {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loadFirstPage,
     TResult? Function()? loadNextPage,
-    TResult? Function()? refreshProducts,
+    TResult? Function(bool forceRefresh)? refreshProducts,
     TResult? Function()? retryPagination,
   }) {
-    return refreshProducts?.call();
+    return refreshProducts?.call(forceRefresh);
   }
 
   @override
@@ -390,12 +422,12 @@ class _$RefreshProductsImpl implements RefreshProducts {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loadFirstPage,
     TResult Function()? loadNextPage,
-    TResult Function()? refreshProducts,
+    TResult Function(bool forceRefresh)? refreshProducts,
     TResult Function()? retryPagination,
     required TResult orElse(),
   }) {
     if (refreshProducts != null) {
-      return refreshProducts();
+      return refreshProducts(forceRefresh);
     }
     return orElse();
   }
@@ -439,7 +471,16 @@ class _$RefreshProductsImpl implements RefreshProducts {
 }
 
 abstract class RefreshProducts implements ProductEvent {
-  const factory RefreshProducts() = _$RefreshProductsImpl;
+  const factory RefreshProducts({final bool forceRefresh}) =
+      _$RefreshProductsImpl;
+
+  bool get forceRefresh;
+
+  /// Create a copy of ProductEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$RefreshProductsImplCopyWith<_$RefreshProductsImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -487,7 +528,7 @@ class _$RetryPaginationImpl implements RetryPagination {
   TResult when<TResult extends Object?>({
     required TResult Function() loadFirstPage,
     required TResult Function() loadNextPage,
-    required TResult Function() refreshProducts,
+    required TResult Function(bool forceRefresh) refreshProducts,
     required TResult Function() retryPagination,
   }) {
     return retryPagination();
@@ -498,7 +539,7 @@ class _$RetryPaginationImpl implements RetryPagination {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loadFirstPage,
     TResult? Function()? loadNextPage,
-    TResult? Function()? refreshProducts,
+    TResult? Function(bool forceRefresh)? refreshProducts,
     TResult? Function()? retryPagination,
   }) {
     return retryPagination?.call();
@@ -509,7 +550,7 @@ class _$RetryPaginationImpl implements RetryPagination {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loadFirstPage,
     TResult Function()? loadNextPage,
-    TResult Function()? refreshProducts,
+    TResult Function(bool forceRefresh)? refreshProducts,
     TResult Function()? retryPagination,
     required TResult orElse(),
   }) {

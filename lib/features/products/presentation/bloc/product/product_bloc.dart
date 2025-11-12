@@ -79,7 +79,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     // Evento para refrescar la lista de productos (pull-to-refresh)
     emit(const ProductState.loading());
     final paginationParams = PaginationParams(limit: 10, skip: 0);
-    final result = await getProductsUseCase(paginationParams);
+    final result = await getProductsUseCase(paginationParams, forceRefresh: event.forceRefresh);
     result.fold(
       (failure) {
         emit(ProductState.error(message: failure.message));
