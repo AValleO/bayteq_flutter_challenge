@@ -6,7 +6,7 @@ abstract class ProductRepository {
   /// Obtener lista paginada de productos
   /// [limit] - Número de productos por página (por defecto: 20)
   /// [skip] - Número de productos a omitir (por defecto: 0)
-  Future<Either<Failure, List<Product>>> getProducts({
+  Future<Either<Failure, PaginatedProducts>> getProducts({
     int limit = 20,
     int skip = 0,
   });

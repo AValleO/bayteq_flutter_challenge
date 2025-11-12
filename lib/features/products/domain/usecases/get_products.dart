@@ -8,7 +8,7 @@ class GetProducts {
 
   GetProducts(this.repository);
 
-  Future<Either<Failure, List<Product>>> call(PaginationParams params) async {
+  Future<Either<Failure, PaginatedProducts>> call(PaginationParams params) async {
     // Validaciones necesarias antes de llamar al repositorio
     if (params.limit <= 0) {
       return Left(ValidationFailure('Limit debe ser mayor que 0'));

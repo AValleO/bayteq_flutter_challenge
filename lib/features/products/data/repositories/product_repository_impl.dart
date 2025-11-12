@@ -12,7 +12,7 @@ class ProductRepositoryImpl implements ProductRepository {
   const ProductRepositoryImpl(this._remoteDataSource);
 
   @override
-  Future<Either<Failure, List<Product>>> getProducts({
+  Future<Either<Failure, PaginatedProducts>> getProducts({
     int limit = 20,
     int skip = 0,
   }) async {
@@ -25,8 +25,14 @@ class ProductRepositoryImpl implements ProductRepository {
       final products = response.products
           .map((dto) => dto.toModel() as Product)
           .toList();
-          
-      return Right(products);
+
+      final paginatedProducts = PaginatedProducts(
+        products: products,
+        total: response.total,
+        limit: response.limit,
+        skip: response.skip,
+      );
+      return Right(paginatedProducts);
     } on DioException catch (e) {
       return Left(ServerFailure(e.message ?? 'Server error'));
     } catch (e) {

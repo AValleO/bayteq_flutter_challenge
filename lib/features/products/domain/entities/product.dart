@@ -27,3 +27,28 @@ class Product extends Equatable {
     thumbnail,
   ];
 }
+
+class PaginatedProducts extends Equatable {
+  final List<Product> products;
+  final int total;
+  final int limit;
+  final int skip;
+
+  const PaginatedProducts({
+    required this.products,
+    required this.total,
+    required this.limit,
+    required this.skip,
+  });
+
+  bool get hasMore => skip + products.length < total;
+  int get currentPage => (skip ~/ limit) + 1;
+
+  @override
+  List<Object?> get props => [
+    products,
+    total,
+    limit,
+    skip,
+  ];
+}
