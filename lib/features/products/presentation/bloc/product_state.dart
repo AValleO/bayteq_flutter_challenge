@@ -7,6 +7,8 @@ class ProductState with _$ProductState {
   const factory ProductState.loaded({
     required PaginatedProducts paginatedProducts,
     required List<Product> allProducts,
+    @Default(false) bool isLoadingMore,
+    String? paginationError,
   }) = ProductLoaded;
   const factory ProductState.error({required String message}) = ProductError;
 }

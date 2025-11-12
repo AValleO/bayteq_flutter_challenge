@@ -21,32 +21,44 @@ mixin _$ProductEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() loadFirstPage,
     required TResult Function() loadNextPage,
+    required TResult Function() refreshProducts,
+    required TResult Function() retryPagination,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loadFirstPage,
     TResult? Function()? loadNextPage,
+    TResult? Function()? refreshProducts,
+    TResult? Function()? retryPagination,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loadFirstPage,
     TResult Function()? loadNextPage,
+    TResult Function()? refreshProducts,
+    TResult Function()? retryPagination,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(LoadFirstPage value) loadFirstPage,
     required TResult Function(LoadNextPage value) loadNextPage,
+    required TResult Function(RefreshProducts value) refreshProducts,
+    required TResult Function(RetryPagination value) retryPagination,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(LoadFirstPage value)? loadFirstPage,
     TResult? Function(LoadNextPage value)? loadNextPage,
+    TResult? Function(RefreshProducts value)? refreshProducts,
+    TResult? Function(RetryPagination value)? retryPagination,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(LoadFirstPage value)? loadFirstPage,
     TResult Function(LoadNextPage value)? loadNextPage,
+    TResult Function(RefreshProducts value)? refreshProducts,
+    TResult Function(RetryPagination value)? retryPagination,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
 }
@@ -118,6 +130,8 @@ class _$LoadFirstPageImpl implements LoadFirstPage {
   TResult when<TResult extends Object?>({
     required TResult Function() loadFirstPage,
     required TResult Function() loadNextPage,
+    required TResult Function() refreshProducts,
+    required TResult Function() retryPagination,
   }) {
     return loadFirstPage();
   }
@@ -127,6 +141,8 @@ class _$LoadFirstPageImpl implements LoadFirstPage {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loadFirstPage,
     TResult? Function()? loadNextPage,
+    TResult? Function()? refreshProducts,
+    TResult? Function()? retryPagination,
   }) {
     return loadFirstPage?.call();
   }
@@ -136,6 +152,8 @@ class _$LoadFirstPageImpl implements LoadFirstPage {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loadFirstPage,
     TResult Function()? loadNextPage,
+    TResult Function()? refreshProducts,
+    TResult Function()? retryPagination,
     required TResult orElse(),
   }) {
     if (loadFirstPage != null) {
@@ -149,6 +167,8 @@ class _$LoadFirstPageImpl implements LoadFirstPage {
   TResult map<TResult extends Object?>({
     required TResult Function(LoadFirstPage value) loadFirstPage,
     required TResult Function(LoadNextPage value) loadNextPage,
+    required TResult Function(RefreshProducts value) refreshProducts,
+    required TResult Function(RetryPagination value) retryPagination,
   }) {
     return loadFirstPage(this);
   }
@@ -158,6 +178,8 @@ class _$LoadFirstPageImpl implements LoadFirstPage {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(LoadFirstPage value)? loadFirstPage,
     TResult? Function(LoadNextPage value)? loadNextPage,
+    TResult? Function(RefreshProducts value)? refreshProducts,
+    TResult? Function(RetryPagination value)? retryPagination,
   }) {
     return loadFirstPage?.call(this);
   }
@@ -167,6 +189,8 @@ class _$LoadFirstPageImpl implements LoadFirstPage {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(LoadFirstPage value)? loadFirstPage,
     TResult Function(LoadNextPage value)? loadNextPage,
+    TResult Function(RefreshProducts value)? refreshProducts,
+    TResult Function(RetryPagination value)? retryPagination,
     required TResult orElse(),
   }) {
     if (loadFirstPage != null) {
@@ -225,6 +249,8 @@ class _$LoadNextPageImpl implements LoadNextPage {
   TResult when<TResult extends Object?>({
     required TResult Function() loadFirstPage,
     required TResult Function() loadNextPage,
+    required TResult Function() refreshProducts,
+    required TResult Function() retryPagination,
   }) {
     return loadNextPage();
   }
@@ -234,6 +260,8 @@ class _$LoadNextPageImpl implements LoadNextPage {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loadFirstPage,
     TResult? Function()? loadNextPage,
+    TResult? Function()? refreshProducts,
+    TResult? Function()? retryPagination,
   }) {
     return loadNextPage?.call();
   }
@@ -243,6 +271,8 @@ class _$LoadNextPageImpl implements LoadNextPage {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loadFirstPage,
     TResult Function()? loadNextPage,
+    TResult Function()? refreshProducts,
+    TResult Function()? retryPagination,
     required TResult orElse(),
   }) {
     if (loadNextPage != null) {
@@ -256,6 +286,8 @@ class _$LoadNextPageImpl implements LoadNextPage {
   TResult map<TResult extends Object?>({
     required TResult Function(LoadFirstPage value) loadFirstPage,
     required TResult Function(LoadNextPage value) loadNextPage,
+    required TResult Function(RefreshProducts value) refreshProducts,
+    required TResult Function(RetryPagination value) retryPagination,
   }) {
     return loadNextPage(this);
   }
@@ -265,6 +297,8 @@ class _$LoadNextPageImpl implements LoadNextPage {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(LoadFirstPage value)? loadFirstPage,
     TResult? Function(LoadNextPage value)? loadNextPage,
+    TResult? Function(RefreshProducts value)? refreshProducts,
+    TResult? Function(RetryPagination value)? retryPagination,
   }) {
     return loadNextPage?.call(this);
   }
@@ -274,6 +308,8 @@ class _$LoadNextPageImpl implements LoadNextPage {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(LoadFirstPage value)? loadFirstPage,
     TResult Function(LoadNextPage value)? loadNextPage,
+    TResult Function(RefreshProducts value)? refreshProducts,
+    TResult Function(RetryPagination value)? retryPagination,
     required TResult orElse(),
   }) {
     if (loadNextPage != null) {
@@ -288,6 +324,244 @@ abstract class LoadNextPage implements ProductEvent {
 }
 
 /// @nodoc
+abstract class _$$RefreshProductsImplCopyWith<$Res> {
+  factory _$$RefreshProductsImplCopyWith(
+    _$RefreshProductsImpl value,
+    $Res Function(_$RefreshProductsImpl) then,
+  ) = __$$RefreshProductsImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$RefreshProductsImplCopyWithImpl<$Res>
+    extends _$ProductEventCopyWithImpl<$Res, _$RefreshProductsImpl>
+    implements _$$RefreshProductsImplCopyWith<$Res> {
+  __$$RefreshProductsImplCopyWithImpl(
+    _$RefreshProductsImpl _value,
+    $Res Function(_$RefreshProductsImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of ProductEvent
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$RefreshProductsImpl implements RefreshProducts {
+  const _$RefreshProductsImpl();
+
+  @override
+  String toString() {
+    return 'ProductEvent.refreshProducts()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$RefreshProductsImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() loadFirstPage,
+    required TResult Function() loadNextPage,
+    required TResult Function() refreshProducts,
+    required TResult Function() retryPagination,
+  }) {
+    return refreshProducts();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? loadFirstPage,
+    TResult? Function()? loadNextPage,
+    TResult? Function()? refreshProducts,
+    TResult? Function()? retryPagination,
+  }) {
+    return refreshProducts?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loadFirstPage,
+    TResult Function()? loadNextPage,
+    TResult Function()? refreshProducts,
+    TResult Function()? retryPagination,
+    required TResult orElse(),
+  }) {
+    if (refreshProducts != null) {
+      return refreshProducts();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(LoadFirstPage value) loadFirstPage,
+    required TResult Function(LoadNextPage value) loadNextPage,
+    required TResult Function(RefreshProducts value) refreshProducts,
+    required TResult Function(RetryPagination value) retryPagination,
+  }) {
+    return refreshProducts(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(LoadFirstPage value)? loadFirstPage,
+    TResult? Function(LoadNextPage value)? loadNextPage,
+    TResult? Function(RefreshProducts value)? refreshProducts,
+    TResult? Function(RetryPagination value)? retryPagination,
+  }) {
+    return refreshProducts?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(LoadFirstPage value)? loadFirstPage,
+    TResult Function(LoadNextPage value)? loadNextPage,
+    TResult Function(RefreshProducts value)? refreshProducts,
+    TResult Function(RetryPagination value)? retryPagination,
+    required TResult orElse(),
+  }) {
+    if (refreshProducts != null) {
+      return refreshProducts(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class RefreshProducts implements ProductEvent {
+  const factory RefreshProducts() = _$RefreshProductsImpl;
+}
+
+/// @nodoc
+abstract class _$$RetryPaginationImplCopyWith<$Res> {
+  factory _$$RetryPaginationImplCopyWith(
+    _$RetryPaginationImpl value,
+    $Res Function(_$RetryPaginationImpl) then,
+  ) = __$$RetryPaginationImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$RetryPaginationImplCopyWithImpl<$Res>
+    extends _$ProductEventCopyWithImpl<$Res, _$RetryPaginationImpl>
+    implements _$$RetryPaginationImplCopyWith<$Res> {
+  __$$RetryPaginationImplCopyWithImpl(
+    _$RetryPaginationImpl _value,
+    $Res Function(_$RetryPaginationImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of ProductEvent
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$RetryPaginationImpl implements RetryPagination {
+  const _$RetryPaginationImpl();
+
+  @override
+  String toString() {
+    return 'ProductEvent.retryPagination()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$RetryPaginationImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() loadFirstPage,
+    required TResult Function() loadNextPage,
+    required TResult Function() refreshProducts,
+    required TResult Function() retryPagination,
+  }) {
+    return retryPagination();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? loadFirstPage,
+    TResult? Function()? loadNextPage,
+    TResult? Function()? refreshProducts,
+    TResult? Function()? retryPagination,
+  }) {
+    return retryPagination?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loadFirstPage,
+    TResult Function()? loadNextPage,
+    TResult Function()? refreshProducts,
+    TResult Function()? retryPagination,
+    required TResult orElse(),
+  }) {
+    if (retryPagination != null) {
+      return retryPagination();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(LoadFirstPage value) loadFirstPage,
+    required TResult Function(LoadNextPage value) loadNextPage,
+    required TResult Function(RefreshProducts value) refreshProducts,
+    required TResult Function(RetryPagination value) retryPagination,
+  }) {
+    return retryPagination(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(LoadFirstPage value)? loadFirstPage,
+    TResult? Function(LoadNextPage value)? loadNextPage,
+    TResult? Function(RefreshProducts value)? refreshProducts,
+    TResult? Function(RetryPagination value)? retryPagination,
+  }) {
+    return retryPagination?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(LoadFirstPage value)? loadFirstPage,
+    TResult Function(LoadNextPage value)? loadNextPage,
+    TResult Function(RefreshProducts value)? refreshProducts,
+    TResult Function(RetryPagination value)? retryPagination,
+    required TResult orElse(),
+  }) {
+    if (retryPagination != null) {
+      return retryPagination(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class RetryPagination implements ProductEvent {
+  const factory RetryPagination() = _$RetryPaginationImpl;
+}
+
+/// @nodoc
 mixin _$ProductState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
@@ -296,6 +570,8 @@ mixin _$ProductState {
     required TResult Function(
       PaginatedProducts paginatedProducts,
       List<Product> allProducts,
+      bool isLoadingMore,
+      String? paginationError,
     )
     loaded,
     required TResult Function(String message) error,
@@ -307,6 +583,8 @@ mixin _$ProductState {
     TResult? Function(
       PaginatedProducts paginatedProducts,
       List<Product> allProducts,
+      bool isLoadingMore,
+      String? paginationError,
     )?
     loaded,
     TResult? Function(String message)? error,
@@ -318,6 +596,8 @@ mixin _$ProductState {
     TResult Function(
       PaginatedProducts paginatedProducts,
       List<Product> allProducts,
+      bool isLoadingMore,
+      String? paginationError,
     )?
     loaded,
     TResult Function(String message)? error,
@@ -417,6 +697,8 @@ class _$ProductInitialImpl implements ProductInitial {
     required TResult Function(
       PaginatedProducts paginatedProducts,
       List<Product> allProducts,
+      bool isLoadingMore,
+      String? paginationError,
     )
     loaded,
     required TResult Function(String message) error,
@@ -432,6 +714,8 @@ class _$ProductInitialImpl implements ProductInitial {
     TResult? Function(
       PaginatedProducts paginatedProducts,
       List<Product> allProducts,
+      bool isLoadingMore,
+      String? paginationError,
     )?
     loaded,
     TResult? Function(String message)? error,
@@ -447,6 +731,8 @@ class _$ProductInitialImpl implements ProductInitial {
     TResult Function(
       PaginatedProducts paginatedProducts,
       List<Product> allProducts,
+      bool isLoadingMore,
+      String? paginationError,
     )?
     loaded,
     TResult Function(String message)? error,
@@ -548,6 +834,8 @@ class _$ProductLoadingImpl implements ProductLoading {
     required TResult Function(
       PaginatedProducts paginatedProducts,
       List<Product> allProducts,
+      bool isLoadingMore,
+      String? paginationError,
     )
     loaded,
     required TResult Function(String message) error,
@@ -563,6 +851,8 @@ class _$ProductLoadingImpl implements ProductLoading {
     TResult? Function(
       PaginatedProducts paginatedProducts,
       List<Product> allProducts,
+      bool isLoadingMore,
+      String? paginationError,
     )?
     loaded,
     TResult? Function(String message)? error,
@@ -578,6 +868,8 @@ class _$ProductLoadingImpl implements ProductLoading {
     TResult Function(
       PaginatedProducts paginatedProducts,
       List<Product> allProducts,
+      bool isLoadingMore,
+      String? paginationError,
     )?
     loaded,
     TResult Function(String message)? error,
@@ -638,7 +930,12 @@ abstract class _$$ProductLoadedImplCopyWith<$Res> {
     $Res Function(_$ProductLoadedImpl) then,
   ) = __$$ProductLoadedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({PaginatedProducts paginatedProducts, List<Product> allProducts});
+  $Res call({
+    PaginatedProducts paginatedProducts,
+    List<Product> allProducts,
+    bool isLoadingMore,
+    String? paginationError,
+  });
 }
 
 /// @nodoc
@@ -654,7 +951,12 @@ class __$$ProductLoadedImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? paginatedProducts = null, Object? allProducts = null}) {
+  $Res call({
+    Object? paginatedProducts = null,
+    Object? allProducts = null,
+    Object? isLoadingMore = null,
+    Object? paginationError = freezed,
+  }) {
     return _then(
       _$ProductLoadedImpl(
         paginatedProducts: null == paginatedProducts
@@ -665,6 +967,14 @@ class __$$ProductLoadedImplCopyWithImpl<$Res>
             ? _value._allProducts
             : allProducts // ignore: cast_nullable_to_non_nullable
                   as List<Product>,
+        isLoadingMore: null == isLoadingMore
+            ? _value.isLoadingMore
+            : isLoadingMore // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        paginationError: freezed == paginationError
+            ? _value.paginationError
+            : paginationError // ignore: cast_nullable_to_non_nullable
+                  as String?,
       ),
     );
   }
@@ -676,6 +986,8 @@ class _$ProductLoadedImpl implements ProductLoaded {
   const _$ProductLoadedImpl({
     required this.paginatedProducts,
     required final List<Product> allProducts,
+    this.isLoadingMore = false,
+    this.paginationError,
   }) : _allProducts = allProducts;
 
   @override
@@ -689,8 +1001,14 @@ class _$ProductLoadedImpl implements ProductLoaded {
   }
 
   @override
+  @JsonKey()
+  final bool isLoadingMore;
+  @override
+  final String? paginationError;
+
+  @override
   String toString() {
-    return 'ProductState.loaded(paginatedProducts: $paginatedProducts, allProducts: $allProducts)';
+    return 'ProductState.loaded(paginatedProducts: $paginatedProducts, allProducts: $allProducts, isLoadingMore: $isLoadingMore, paginationError: $paginationError)';
   }
 
   @override
@@ -703,7 +1021,11 @@ class _$ProductLoadedImpl implements ProductLoaded {
             const DeepCollectionEquality().equals(
               other._allProducts,
               _allProducts,
-            ));
+            ) &&
+            (identical(other.isLoadingMore, isLoadingMore) ||
+                other.isLoadingMore == isLoadingMore) &&
+            (identical(other.paginationError, paginationError) ||
+                other.paginationError == paginationError));
   }
 
   @override
@@ -711,6 +1033,8 @@ class _$ProductLoadedImpl implements ProductLoaded {
     runtimeType,
     paginatedProducts,
     const DeepCollectionEquality().hash(_allProducts),
+    isLoadingMore,
+    paginationError,
   );
 
   /// Create a copy of ProductState
@@ -729,11 +1053,18 @@ class _$ProductLoadedImpl implements ProductLoaded {
     required TResult Function(
       PaginatedProducts paginatedProducts,
       List<Product> allProducts,
+      bool isLoadingMore,
+      String? paginationError,
     )
     loaded,
     required TResult Function(String message) error,
   }) {
-    return loaded(paginatedProducts, allProducts);
+    return loaded(
+      paginatedProducts,
+      allProducts,
+      isLoadingMore,
+      paginationError,
+    );
   }
 
   @override
@@ -744,11 +1075,18 @@ class _$ProductLoadedImpl implements ProductLoaded {
     TResult? Function(
       PaginatedProducts paginatedProducts,
       List<Product> allProducts,
+      bool isLoadingMore,
+      String? paginationError,
     )?
     loaded,
     TResult? Function(String message)? error,
   }) {
-    return loaded?.call(paginatedProducts, allProducts);
+    return loaded?.call(
+      paginatedProducts,
+      allProducts,
+      isLoadingMore,
+      paginationError,
+    );
   }
 
   @override
@@ -759,13 +1097,20 @@ class _$ProductLoadedImpl implements ProductLoaded {
     TResult Function(
       PaginatedProducts paginatedProducts,
       List<Product> allProducts,
+      bool isLoadingMore,
+      String? paginationError,
     )?
     loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(paginatedProducts, allProducts);
+      return loaded(
+        paginatedProducts,
+        allProducts,
+        isLoadingMore,
+        paginationError,
+      );
     }
     return orElse();
   }
@@ -812,10 +1157,14 @@ abstract class ProductLoaded implements ProductState {
   const factory ProductLoaded({
     required final PaginatedProducts paginatedProducts,
     required final List<Product> allProducts,
+    final bool isLoadingMore,
+    final String? paginationError,
   }) = _$ProductLoadedImpl;
 
   PaginatedProducts get paginatedProducts;
   List<Product> get allProducts;
+  bool get isLoadingMore;
+  String? get paginationError;
 
   /// Create a copy of ProductState
   /// with the given fields replaced by the non-null parameter values.
@@ -899,6 +1248,8 @@ class _$ProductErrorImpl implements ProductError {
     required TResult Function(
       PaginatedProducts paginatedProducts,
       List<Product> allProducts,
+      bool isLoadingMore,
+      String? paginationError,
     )
     loaded,
     required TResult Function(String message) error,
@@ -914,6 +1265,8 @@ class _$ProductErrorImpl implements ProductError {
     TResult? Function(
       PaginatedProducts paginatedProducts,
       List<Product> allProducts,
+      bool isLoadingMore,
+      String? paginationError,
     )?
     loaded,
     TResult? Function(String message)? error,
@@ -929,6 +1282,8 @@ class _$ProductErrorImpl implements ProductError {
     TResult Function(
       PaginatedProducts paginatedProducts,
       List<Product> allProducts,
+      bool isLoadingMore,
+      String? paginationError,
     )?
     loaded,
     TResult Function(String message)? error,
