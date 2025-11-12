@@ -1,6 +1,7 @@
 import 'package:bayteq_flutter_challenge/features/products/products.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 // Lo defino como StatefulWidget para manejar el ScrollController
 class ProductList extends StatefulWidget {
@@ -106,9 +107,26 @@ class _ProductListState extends State<ProductList> {
                             const Icon(Icons.error),
                       ),
                       title: Text(product.title),
-                      subtitle: Text(
-                        '\$${product.price.toStringAsFixed(2)} - ${product.category}',
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '\$${product.price.toStringAsFixed(2)} - ${product.category}',
+                          ),
+                          const SizedBox(height: 4),
+                          RatingBarIndicator(
+                            rating: product.rating,
+                            itemBuilder: (context, index) => const Icon(
+                              Icons.star,
+                              color: Colors.amber,
+                            ),
+                            itemCount: 5,
+                            itemSize: 16.0,
+                            direction: Axis.horizontal,
+                          ),
+                        ],
                       ),
+                      isThreeLine: true,
                     );
                   } else {
                     return const Padding(

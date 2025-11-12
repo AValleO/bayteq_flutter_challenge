@@ -12,6 +12,7 @@ class ProductDto {
   final String description;
   final String category;
   final String thumbnail;
+  final double rating;
 
   const ProductDto({
     required this.id,
@@ -20,6 +21,7 @@ class ProductDto {
     required this.description,
     required this.category,
     required this.thumbnail,
+    required this.rating,
   });
 
   factory ProductDto.fromJson(Map<String, dynamic> json) =>
@@ -35,6 +37,7 @@ class ProductDto {
       description: description,
       category: category,
       thumbnail: thumbnail,
+      rating: rating,
     );
   }
 }

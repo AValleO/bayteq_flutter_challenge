@@ -13,6 +13,7 @@ ProductDto _$ProductDtoFromJson(Map<String, dynamic> json) => ProductDto(
   description: json['description'] as String,
   category: json['category'] as String,
   thumbnail: json['thumbnail'] as String,
+  rating: (json['rating'] as num).toDouble(),
 );
 
 Map<String, dynamic> _$ProductDtoToJson(ProductDto instance) =>
@@ -23,6 +24,7 @@ Map<String, dynamic> _$ProductDtoToJson(ProductDto instance) =>
       'description': instance.description,
       'category': instance.category,
       'thumbnail': instance.thumbnail,
+      'rating': instance.rating,
     };
 
 ProductResponseDto _$ProductResponseDtoFromJson(Map<String, dynamic> json) =>

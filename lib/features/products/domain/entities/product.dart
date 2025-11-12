@@ -7,6 +7,7 @@ class Product extends Equatable {
   final String description;
   final String category;
   final String thumbnail;
+  final double rating;
 
   const Product({
     required this.id,
@@ -14,7 +15,8 @@ class Product extends Equatable {
     required this.price,
     required this.description,
     required this.category,
-    required this.thumbnail
+    required this.thumbnail,
+    this.rating = 5,
   });
 
   @override
@@ -25,6 +27,7 @@ class Product extends Equatable {
     description,
     category,
     thumbnail,
+    rating,
   ];
 }
 

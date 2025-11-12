@@ -21,7 +21,7 @@ class _ProductApiService implements ProductApiService {
   Future<ProductResponseDto> getProducts({
     int limit = 10,
     int skip = 0,
-    String? select = 'title,price,description,category,thumbnail',
+    String? select = 'title,price,description,category,rating,thumbnail',
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{

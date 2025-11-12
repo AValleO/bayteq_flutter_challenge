@@ -15,6 +15,6 @@ abstract class ProductApiService {
   Future<ProductResponseDto> getProducts({
     @Query('limit') int limit = 10,
     @Query('skip') int skip = 0,
-    @Query('select') String? select = 'title,price,description,category,thumbnail',
+    @Query('select') String? select = 'title,price,description,category,rating,thumbnail',
   });
 }
