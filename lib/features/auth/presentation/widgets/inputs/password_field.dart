@@ -24,6 +24,7 @@ class PasswordField extends StatelessWidget {
         print('Clave: $value');
         context.read<AuthBloc>().add(LoginPasswordChanged(value));
       },
+      obscureText: true,
       decoration: InputDecoration(
         enabledBorder: border,
         focusedBorder: border.copyWith(

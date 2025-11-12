@@ -14,4 +14,9 @@ export 'presentation/bloc/product/product_bloc.dart';
 export 'presentation/bloc/product_detail/product_detail_bloc.dart';
 export 'presentation/pages/product_page.dart';
 export 'presentation/widgets/lists/product_list.dart';
+export 'presentation/forms/inputs/product_title.dart';
+export 'presentation/forms/inputs/product_description.dart';
+export 'presentation/forms/inputs/product_price.dart';
+export 'presentation/forms/inputs/product_category.dart';
+export 'presentation/forms/product_form.dart';
 
