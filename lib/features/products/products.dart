@@ -4,6 +4,7 @@ export 'domain/usecases/get_products.dart';
 export 'domain/usecases/get_product_by_id.dart';
 export 'domain/usecases/update_product.dart';
 export 'domain/usecases/delete_product.dart';
+export 'data/datasources/local/product_local_data_source.dart';
 export 'data/datasources/remote/product_api_service.dart';
 export 'data/datasources/remote/product_remote_data_source.dart';
 export 'data/dto/product_response_dto.dart';

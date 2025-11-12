@@ -4,11 +4,16 @@ import 'package:bayteq_flutter_challenge/features/products/products.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // GetIt global
 final getIt = GetIt.instance;
 
 Future<void> setupDependencies() async {
+  // Registro de SharedPreferences
+  final sharedPreferences = await SharedPreferences.getInstance();
+  getIt.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
+
   // Registro de FlutterSecureStorage
   getIt.registerLazySingleton<FlutterSecureStorage>(
     () => const FlutterSecureStorage(
@@ -21,6 +26,12 @@ Future<void> setupDependencies() async {
   // Registro Data Sources Locales
   getIt.registerLazySingleton<AuthLocalDataSource>(
     () => AuthLocalDataSourceImpl(getIt<FlutterSecureStorage>()),
+  );
+
+  getIt.registerLazySingleton<ProductLocalDataSource>(
+    () => ProductLocalDataSourceImpl(
+      sharedPreferences: getIt<SharedPreferences>(),
+    ),
   );
 
   // Registro AuthInterceptor con dependencia de DataSource Local
@@ -79,6 +90,7 @@ Future<void> setupDependencies() async {
   getIt.registerLazySingleton<ProductRepository>(
     () => ProductRepositoryImpl(
       remoteDataSource: getIt<ProductRemoteDataSource>(),
+      localDataSource: getIt<ProductLocalDataSource>(),
     ),
   );
 
