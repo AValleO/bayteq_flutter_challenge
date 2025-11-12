@@ -19,7 +19,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
   onLoadFirstPage(LoadFirstPage event, Emitter<ProductState> emit) async{
     // Cargar la primera página de productos
     emit(const ProductState.loading());
-    final paginationParams = PaginationParams(limit: 20, skip: 0);
+    final paginationParams = PaginationParams(limit: 10, skip: 0);
     final result = await getProductsUseCase(paginationParams);
     result.fold(
       (failure) {
@@ -78,7 +78,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
   onRefreshProducts(RefreshProducts event, Emitter<ProductState> emit) async {
     // Evento para refrescar la lista de productos (pull-to-refresh)
     emit(const ProductState.loading());
-    final paginationParams = PaginationParams(limit: 20, skip: 0);
+    final paginationParams = PaginationParams(limit: 10, skip: 0);
     final result = await getProductsUseCase(paginationParams);
     result.fold(
       (failure) {

@@ -13,7 +13,7 @@ class ProductRepositoryImpl implements ProductRepository {
 
   @override
   Future<Either<Failure, PaginatedProducts>> getProducts({
-    int limit = 20,
+    int limit = 10,
     int skip = 0,
   }) async {
     try {

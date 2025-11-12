@@ -27,7 +27,7 @@ class PaginationParams extends Equatable {
   final int skip;
 
   const PaginationParams({
-    this.limit = 20,
+    this.limit = 10,
     this.skip = 0,
   });
 
