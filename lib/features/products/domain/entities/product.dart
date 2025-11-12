@@ -10,12 +10,12 @@ class Product extends Equatable {
   final double rating;
 
   const Product({
-    required this.id,
+    this.id = 0,
     required this.title,
     required this.price,
     required this.description,
     required this.category,
-    required this.thumbnail,
+    this.thumbnail = '',
     this.rating = 5,
   });
 

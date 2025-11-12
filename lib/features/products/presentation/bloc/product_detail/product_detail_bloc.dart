@@ -1,5 +1,6 @@
 import 'package:bayteq_flutter_challenge/features/products/products.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'product_detail_event.dart';
@@ -15,10 +16,22 @@ class ProductDetailBloc extends Bloc<ProductDetailEvent, ProductDetailState> {
     required this.getProductByIdUseCase,
     required this.updateProductUseCase,
     required this.deleteProductUseCase,
-  }) : super(const ProductDetailState.initial()) {
+  }) : super(ProductDetailState.initial(
+    productForm: ProductForm(
+      productTitle: ProductTitle.pure(),
+      productDescription: ProductDescription.pure(),
+      productPrice: ProductPrice.pure(),
+      productCategory: ProductCategory.pure(),
+    ),
+    productId: 0,
+  )) {
     on<LoadProductDetail>(_onLoadProductDetail);
     on<UpdateProductDetail>(_onUpdateProductDetail);
     on<DeleteProductDetail>(_onDeleteProductDetail);
+    on<ProductDetailTitleChanged>(_onProductTitleChanged);
+    on<ProductDetailDescriptionChanged>(_onProductDescriptionChanged);
+    on<ProductDetailPriceChanged>(_onProductPriceChanged);
+    on<ProductDetailCategoryChanged>(_onProductCategoryChanged);
   }
 
   Future<void> _onLoadProductDetail(
@@ -31,7 +44,15 @@ class ProductDetailBloc extends Bloc<ProductDetailEvent, ProductDetailState> {
     
     result.fold(
       (failure) => emit(ProductDetailState.error(message: failure.message)),
-      (product) => emit(ProductDetailState.loaded(product: product)),
+      (product) => emit(ProductDetailState.loaded(
+        productForm: ProductForm(
+          productTitle: ProductTitle.dirty(product.title),
+          productDescription: ProductDescription.dirty(product.description),
+          productPrice: ProductPrice.dirty(product.price),
+          productCategory: ProductCategory.dirty(product.category),
+        ),
+        productId: product.id,
+      )),
     );
   }
 
@@ -42,23 +63,46 @@ class ProductDetailBloc extends Bloc<ProductDetailEvent, ProductDetailState> {
     final currentState = state;
     if (currentState is! ProductDetailLoaded) return;
 
+    // Valido si el formulario es válido antes de actualizar
+    if (!currentState.productForm.isValid) {
+      emit(ProductDetailState.loaded(
+        productForm: currentState.productForm.copyWith(
+          submissionStatus: FormzSubmissionStatus.failure,
+          errorMessage: 'Por favor, corrige los errores en el formulario.',
+          hasSubmittedOnce: true,
+        ),
+        productId: currentState.productId,
+      ));
+      return;
+    }
+
     emit(ProductDetailState.loaded(
-      product: currentState.product,
-      isUpdating: true,
+      productForm: currentState.productForm.copyWith(
+        submissionStatus: FormzSubmissionStatus.inProgress,
+        hasSubmittedOnce: true,
+      ),
+      productId: currentState.productId,
     ));
 
-    final result = await updateProductUseCase(event.product);
+    // Construyo el producto actualizado
+    final updatedProduct = Product(
+      id: currentState.productId,
+      title: currentState.productForm.productTitle.value,
+      description: currentState.productForm.productDescription.value,
+      price: currentState.productForm.productPrice.value,
+      category: currentState.productForm.productCategory.value,
+    );
+
+    final result = await updateProductUseCase(updatedProduct);
 
     result.fold(
       (failure) => emit(ProductDetailState.loaded(
-        product: currentState.product,
-        isUpdating: false,
-        updateError: failure.message,
+        productForm: currentState.productForm,
+        productId: currentState.productId,
       )),
       (updatedProduct) => emit(ProductDetailState.loaded(
-        product: updatedProduct,
-        isUpdating: false,
-        updateSuccess: true,
+        productForm: currentState.productForm,
+        productId: currentState.productId,
       )),
     );
   }
@@ -71,19 +115,93 @@ class ProductDetailBloc extends Bloc<ProductDetailEvent, ProductDetailState> {
     if (currentState is! ProductDetailLoaded) return;
 
     emit(ProductDetailState.loaded(
-      product: currentState.product,
-      isDeleting: true,
+      productForm: currentState.productForm.copyWith(
+        submissionStatus: FormzSubmissionStatus.inProgress,
+        hasSubmittedOnce: true,
+      ),
+      productId: currentState.productId,
     ));
 
-    final result = await deleteProductUseCase(event.productId);
+    final result = await deleteProductUseCase(currentState.productId);
 
     result.fold(
       (failure) => emit(ProductDetailState.loaded(
-        product: currentState.product,
-        isDeleting: false,
-        deleteError: failure.message,
+        productForm: currentState.productForm.copyWith(
+          submissionStatus: FormzSubmissionStatus.failure,
+          errorMessage: failure.message,
+          hasSubmittedOnce: true,
+        ),
+        productId: currentState.productId,
       )),
       (_) => emit(const ProductDetailState.deleted()),
     );
+  }
+
+  Future<void> _onProductTitleChanged(
+    ProductDetailTitleChanged event,
+    Emitter<ProductDetailState> emit,
+  ) async {
+    final currentState = state;
+    if (currentState is! ProductDetailLoaded) return;
+
+    final updatedForm = currentState.productForm.copyWith(
+      productTitle: ProductTitle.dirty(event.title),
+    );
+
+    emit(ProductDetailState.loaded(
+      productForm: updatedForm,
+      productId: currentState.productId,
+    ));
+  }
+
+  Future<void> _onProductDescriptionChanged(
+    ProductDetailDescriptionChanged event,
+    Emitter<ProductDetailState> emit,
+  ) async {
+    final currentState = state;
+    if (currentState is! ProductDetailLoaded) return;
+
+    final updatedForm = currentState.productForm.copyWith(
+      productDescription: ProductDescription.dirty(event.description),
+    );
+
+    emit(ProductDetailState.loaded(
+      productForm: updatedForm,
+      productId: currentState.productId,
+    ));
+  }
+
+  Future<void> _onProductPriceChanged(
+    ProductDetailPriceChanged event,
+    Emitter<ProductDetailState> emit,
+  ) async {
+    final currentState = state;
+    if (currentState is! ProductDetailLoaded) return;
+
+    final updatedForm = currentState.productForm.copyWith(
+      productPrice: ProductPrice.dirty(event.price),
+    );
+
+    emit(ProductDetailState.loaded(
+      productForm: updatedForm,
+      productId: currentState.productId,
+    ));
+  }
+
+  Future<void> _onProductCategoryChanged(
+    ProductDetailCategoryChanged event,
+    Emitter<ProductDetailState> emit,
+  ) async {
+    final currentState = state;
+    if (currentState is! ProductDetailLoaded) return;
+
+    final updatedForm = currentState.productForm.copyWith(
+      productCategory: ProductCategory.dirty(event.category),
+    );
+
+    emit(ProductDetailState.loaded(
+      productForm: updatedForm,
+      productId: currentState.productId,
+    ));
   }
 }
