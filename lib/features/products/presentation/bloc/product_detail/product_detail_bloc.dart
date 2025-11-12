@@ -52,6 +52,7 @@ class ProductDetailBloc extends Bloc<ProductDetailEvent, ProductDetailState> {
           productCategory: ProductCategory.dirty(product.category),
         ),
         productId: product.id,
+        product: product,
       )),
     );
   }
@@ -72,6 +73,7 @@ class ProductDetailBloc extends Bloc<ProductDetailEvent, ProductDetailState> {
           hasSubmittedOnce: true,
         ),
         productId: currentState.productId,
+        product: currentState.product,
       ));
       return;
     }
@@ -82,6 +84,7 @@ class ProductDetailBloc extends Bloc<ProductDetailEvent, ProductDetailState> {
         hasSubmittedOnce: true,
       ),
       productId: currentState.productId,
+      product: currentState.product,
     ));
 
     // Construyo el producto actualizado
@@ -91,6 +94,8 @@ class ProductDetailBloc extends Bloc<ProductDetailEvent, ProductDetailState> {
       description: currentState.productForm.productDescription.value,
       price: currentState.productForm.productPrice.value,
       category: currentState.productForm.productCategory.value,
+      thumbnail: currentState.product.thumbnail,
+      rating: currentState.product.rating,
     );
 
     final result = await updateProductUseCase(updatedProduct);
@@ -102,12 +107,14 @@ class ProductDetailBloc extends Bloc<ProductDetailEvent, ProductDetailState> {
           errorMessage: failure.message,
         ),
         productId: currentState.productId,
+        product: currentState.product,
       )),
       (updatedProduct) => emit(ProductDetailState.loaded(
         productForm: currentState.productForm.copyWith(
           submissionStatus: FormzSubmissionStatus.success,
         ),
         productId: currentState.productId,
+        product: updatedProduct,
       )),
     );
   }
@@ -125,6 +132,7 @@ class ProductDetailBloc extends Bloc<ProductDetailEvent, ProductDetailState> {
         hasSubmittedOnce: true,
       ),
       productId: currentState.productId,
+      product: currentState.product,
     ));
 
     final result = await deleteProductUseCase(currentState.productId);
@@ -137,6 +145,7 @@ class ProductDetailBloc extends Bloc<ProductDetailEvent, ProductDetailState> {
           hasSubmittedOnce: true,
         ),
         productId: currentState.productId,
+        product: currentState.product,
       )),
       (_) => emit(const ProductDetailState.deleted()),
     );
@@ -156,6 +165,7 @@ class ProductDetailBloc extends Bloc<ProductDetailEvent, ProductDetailState> {
     emit(ProductDetailState.loaded(
       productForm: updatedForm,
       productId: currentState.productId,
+      product: currentState.product,
     ));
   }
 
@@ -173,6 +183,7 @@ class ProductDetailBloc extends Bloc<ProductDetailEvent, ProductDetailState> {
     emit(ProductDetailState.loaded(
       productForm: updatedForm,
       productId: currentState.productId,
+      product: currentState.product,
     ));
   }
 
@@ -190,6 +201,7 @@ class ProductDetailBloc extends Bloc<ProductDetailEvent, ProductDetailState> {
     emit(ProductDetailState.loaded(
       productForm: updatedForm,
       productId: currentState.productId,
+      product: currentState.product,
     ));
   }
 
@@ -207,6 +219,7 @@ class ProductDetailBloc extends Bloc<ProductDetailEvent, ProductDetailState> {
     emit(ProductDetailState.loaded(
       productForm: updatedForm,
       productId: currentState.productId,
+      product: currentState.product,
     ));
   }
 }

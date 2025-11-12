@@ -1352,7 +1352,12 @@ mixin _$ProductDetailState {
   TResult when<TResult extends Object?>({
     required TResult Function(ProductForm productForm, int productId) initial,
     required TResult Function() loading,
-    required TResult Function(ProductForm productForm, int productId) loaded,
+    required TResult Function(
+      ProductForm productForm,
+      int productId,
+      Product product,
+    )
+    loaded,
     required TResult Function() deleted,
     required TResult Function(String message) error,
   }) => throw _privateConstructorUsedError;
@@ -1360,7 +1365,8 @@ mixin _$ProductDetailState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(ProductForm productForm, int productId)? initial,
     TResult? Function()? loading,
-    TResult? Function(ProductForm productForm, int productId)? loaded,
+    TResult? Function(ProductForm productForm, int productId, Product product)?
+    loaded,
     TResult? Function()? deleted,
     TResult? Function(String message)? error,
   }) => throw _privateConstructorUsedError;
@@ -1368,7 +1374,8 @@ mixin _$ProductDetailState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(ProductForm productForm, int productId)? initial,
     TResult Function()? loading,
-    TResult Function(ProductForm productForm, int productId)? loaded,
+    TResult Function(ProductForm productForm, int productId, Product product)?
+    loaded,
     TResult Function()? deleted,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -1510,7 +1517,12 @@ class _$ProductDetailInitialImpl implements ProductDetailInitial {
   TResult when<TResult extends Object?>({
     required TResult Function(ProductForm productForm, int productId) initial,
     required TResult Function() loading,
-    required TResult Function(ProductForm productForm, int productId) loaded,
+    required TResult Function(
+      ProductForm productForm,
+      int productId,
+      Product product,
+    )
+    loaded,
     required TResult Function() deleted,
     required TResult Function(String message) error,
   }) {
@@ -1522,7 +1534,8 @@ class _$ProductDetailInitialImpl implements ProductDetailInitial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(ProductForm productForm, int productId)? initial,
     TResult? Function()? loading,
-    TResult? Function(ProductForm productForm, int productId)? loaded,
+    TResult? Function(ProductForm productForm, int productId, Product product)?
+    loaded,
     TResult? Function()? deleted,
     TResult? Function(String message)? error,
   }) {
@@ -1534,7 +1547,8 @@ class _$ProductDetailInitialImpl implements ProductDetailInitial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(ProductForm productForm, int productId)? initial,
     TResult Function()? loading,
-    TResult Function(ProductForm productForm, int productId)? loaded,
+    TResult Function(ProductForm productForm, int productId, Product product)?
+    loaded,
     TResult Function()? deleted,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -1648,7 +1662,12 @@ class _$ProductDetailLoadingImpl implements ProductDetailLoading {
   TResult when<TResult extends Object?>({
     required TResult Function(ProductForm productForm, int productId) initial,
     required TResult Function() loading,
-    required TResult Function(ProductForm productForm, int productId) loaded,
+    required TResult Function(
+      ProductForm productForm,
+      int productId,
+      Product product,
+    )
+    loaded,
     required TResult Function() deleted,
     required TResult Function(String message) error,
   }) {
@@ -1660,7 +1679,8 @@ class _$ProductDetailLoadingImpl implements ProductDetailLoading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(ProductForm productForm, int productId)? initial,
     TResult? Function()? loading,
-    TResult? Function(ProductForm productForm, int productId)? loaded,
+    TResult? Function(ProductForm productForm, int productId, Product product)?
+    loaded,
     TResult? Function()? deleted,
     TResult? Function(String message)? error,
   }) {
@@ -1672,7 +1692,8 @@ class _$ProductDetailLoadingImpl implements ProductDetailLoading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(ProductForm productForm, int productId)? initial,
     TResult Function()? loading,
-    TResult Function(ProductForm productForm, int productId)? loaded,
+    TResult Function(ProductForm productForm, int productId, Product product)?
+    loaded,
     TResult Function()? deleted,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -1735,7 +1756,7 @@ abstract class _$$ProductDetailLoadedImplCopyWith<$Res> {
     $Res Function(_$ProductDetailLoadedImpl) then,
   ) = __$$ProductDetailLoadedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({ProductForm productForm, int productId});
+  $Res call({ProductForm productForm, int productId, Product product});
 }
 
 /// @nodoc
@@ -1751,7 +1772,11 @@ class __$$ProductDetailLoadedImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? productForm = null, Object? productId = null}) {
+  $Res call({
+    Object? productForm = null,
+    Object? productId = null,
+    Object? product = null,
+  }) {
     return _then(
       _$ProductDetailLoadedImpl(
         productForm: null == productForm
@@ -1762,6 +1787,10 @@ class __$$ProductDetailLoadedImplCopyWithImpl<$Res>
             ? _value.productId
             : productId // ignore: cast_nullable_to_non_nullable
                   as int,
+        product: null == product
+            ? _value.product
+            : product // ignore: cast_nullable_to_non_nullable
+                  as Product,
       ),
     );
   }
@@ -1773,16 +1802,19 @@ class _$ProductDetailLoadedImpl implements ProductDetailLoaded {
   const _$ProductDetailLoadedImpl({
     required this.productForm,
     required this.productId,
+    required this.product,
   });
 
   @override
   final ProductForm productForm;
   @override
   final int productId;
+  @override
+  final Product product;
 
   @override
   String toString() {
-    return 'ProductDetailState.loaded(productForm: $productForm, productId: $productId)';
+    return 'ProductDetailState.loaded(productForm: $productForm, productId: $productId, product: $product)';
   }
 
   @override
@@ -1793,11 +1825,12 @@ class _$ProductDetailLoadedImpl implements ProductDetailLoaded {
             (identical(other.productForm, productForm) ||
                 other.productForm == productForm) &&
             (identical(other.productId, productId) ||
-                other.productId == productId));
+                other.productId == productId) &&
+            (identical(other.product, product) || other.product == product));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, productForm, productId);
+  int get hashCode => Object.hash(runtimeType, productForm, productId, product);
 
   /// Create a copy of ProductDetailState
   /// with the given fields replaced by the non-null parameter values.
@@ -1815,11 +1848,16 @@ class _$ProductDetailLoadedImpl implements ProductDetailLoaded {
   TResult when<TResult extends Object?>({
     required TResult Function(ProductForm productForm, int productId) initial,
     required TResult Function() loading,
-    required TResult Function(ProductForm productForm, int productId) loaded,
+    required TResult Function(
+      ProductForm productForm,
+      int productId,
+      Product product,
+    )
+    loaded,
     required TResult Function() deleted,
     required TResult Function(String message) error,
   }) {
-    return loaded(productForm, productId);
+    return loaded(productForm, productId, product);
   }
 
   @override
@@ -1827,11 +1865,12 @@ class _$ProductDetailLoadedImpl implements ProductDetailLoaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(ProductForm productForm, int productId)? initial,
     TResult? Function()? loading,
-    TResult? Function(ProductForm productForm, int productId)? loaded,
+    TResult? Function(ProductForm productForm, int productId, Product product)?
+    loaded,
     TResult? Function()? deleted,
     TResult? Function(String message)? error,
   }) {
-    return loaded?.call(productForm, productId);
+    return loaded?.call(productForm, productId, product);
   }
 
   @override
@@ -1839,13 +1878,14 @@ class _$ProductDetailLoadedImpl implements ProductDetailLoaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(ProductForm productForm, int productId)? initial,
     TResult Function()? loading,
-    TResult Function(ProductForm productForm, int productId)? loaded,
+    TResult Function(ProductForm productForm, int productId, Product product)?
+    loaded,
     TResult Function()? deleted,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(productForm, productId);
+      return loaded(productForm, productId, product);
     }
     return orElse();
   }
@@ -1895,10 +1935,12 @@ abstract class ProductDetailLoaded implements ProductDetailState {
   const factory ProductDetailLoaded({
     required final ProductForm productForm,
     required final int productId,
+    required final Product product,
   }) = _$ProductDetailLoadedImpl;
 
   ProductForm get productForm;
   int get productId;
+  Product get product;
 
   /// Create a copy of ProductDetailState
   /// with the given fields replaced by the non-null parameter values.
@@ -1953,7 +1995,12 @@ class _$ProductDetailDeletedImpl implements ProductDetailDeleted {
   TResult when<TResult extends Object?>({
     required TResult Function(ProductForm productForm, int productId) initial,
     required TResult Function() loading,
-    required TResult Function(ProductForm productForm, int productId) loaded,
+    required TResult Function(
+      ProductForm productForm,
+      int productId,
+      Product product,
+    )
+    loaded,
     required TResult Function() deleted,
     required TResult Function(String message) error,
   }) {
@@ -1965,7 +2012,8 @@ class _$ProductDetailDeletedImpl implements ProductDetailDeleted {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(ProductForm productForm, int productId)? initial,
     TResult? Function()? loading,
-    TResult? Function(ProductForm productForm, int productId)? loaded,
+    TResult? Function(ProductForm productForm, int productId, Product product)?
+    loaded,
     TResult? Function()? deleted,
     TResult? Function(String message)? error,
   }) {
@@ -1977,7 +2025,8 @@ class _$ProductDetailDeletedImpl implements ProductDetailDeleted {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(ProductForm productForm, int productId)? initial,
     TResult Function()? loading,
-    TResult Function(ProductForm productForm, int productId)? loaded,
+    TResult Function(ProductForm productForm, int productId, Product product)?
+    loaded,
     TResult Function()? deleted,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -2108,7 +2157,12 @@ class _$ProductDetailErrorImpl implements ProductDetailError {
   TResult when<TResult extends Object?>({
     required TResult Function(ProductForm productForm, int productId) initial,
     required TResult Function() loading,
-    required TResult Function(ProductForm productForm, int productId) loaded,
+    required TResult Function(
+      ProductForm productForm,
+      int productId,
+      Product product,
+    )
+    loaded,
     required TResult Function() deleted,
     required TResult Function(String message) error,
   }) {
@@ -2120,7 +2174,8 @@ class _$ProductDetailErrorImpl implements ProductDetailError {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(ProductForm productForm, int productId)? initial,
     TResult? Function()? loading,
-    TResult? Function(ProductForm productForm, int productId)? loaded,
+    TResult? Function(ProductForm productForm, int productId, Product product)?
+    loaded,
     TResult? Function()? deleted,
     TResult? Function(String message)? error,
   }) {
@@ -2132,7 +2187,8 @@ class _$ProductDetailErrorImpl implements ProductDetailError {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(ProductForm productForm, int productId)? initial,
     TResult Function()? loading,
-    TResult Function(ProductForm productForm, int productId)? loaded,
+    TResult Function(ProductForm productForm, int productId, Product product)?
+    loaded,
     TResult Function()? deleted,
     TResult Function(String message)? error,
     required TResult orElse(),

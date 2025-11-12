@@ -10,6 +10,7 @@ class ProductDetailState with _$ProductDetailState {
   const factory ProductDetailState.loaded({
     required ProductForm productForm,
     required int productId,
+    required Product product,
   }) = ProductDetailLoaded;
   const factory ProductDetailState.deleted() = ProductDetailDeleted;
   const factory ProductDetailState.error({required String message}) = ProductDetailError;

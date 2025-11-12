@@ -29,22 +29,23 @@ class _ProductDetailView extends StatelessWidget {
     return BlocConsumer<ProductDetailBloc, ProductDetailState>(
       listener: (context, state) {
         state.maybeWhen(
-          loaded: (productForm, productId) {
-            // Show success toast when update is successful
+          loaded: (productForm, productId, product) {
+            // Presento un SnackBar de éxito al actualizar
             if (productForm.submissionStatus == FormzSubmissionStatus.success) {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
-                  content: Text('Product updated successfully'),
+                  content: Text('Producto actualizado exitosamente'),
                   backgroundColor: Colors.green,
                   duration: Duration(seconds: 2),
                 ),
               );
+              Navigator.of(context).pop();
             }
           },
           deleted: () {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
-                content: Text('Product deleted successfully'),
+                content: Text('Producto eliminado exitosamente'),
                 backgroundColor: Colors.green,
               ),
             );
@@ -64,10 +65,10 @@ class _ProductDetailView extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-            title: const Text('Product Details'),
+            title: const Text('Detalles del Producto'),
             actions: [
               state.maybeWhen(
-                loaded: (productForm, productId) => IconButton(
+                loaded: (productForm, productId, product) => IconButton(
                   icon: const Icon(Icons.delete_outline),
                   onPressed: productForm.submissionStatus == FormzSubmissionStatus.inProgress
                       ? null
@@ -79,16 +80,17 @@ class _ProductDetailView extends StatelessWidget {
           ),
           body: state.maybeWhen(
             loading: () => const Center(child: CircularProgressIndicator()),
-            loaded: (productForm, productId) => _buildLoadedBody(
+            loaded: (productForm, productId, product) => _buildLoadedBody(
               context,
               productForm,
               productId,
+              product,
             ),
             error: (message) => _buildErrorBody(context, message),
             orElse: () => const SizedBox.shrink(),
           ),
           floatingActionButton: state.maybeWhen(
-            loaded: (productForm, productId) => FloatingActionButton.extended(
+            loaded: (productForm, productId, product) => FloatingActionButton.extended(
               onPressed: productForm.submissionStatus == FormzSubmissionStatus.inProgress
                   ? null
                   : () => context
@@ -106,8 +108,8 @@ class _ProductDetailView extends StatelessWidget {
                   : const Icon(Icons.save),
               label: Text(
                 productForm.submissionStatus == FormzSubmissionStatus.inProgress
-                    ? 'Saving...'
-                    : 'Save Changes',
+                    ? 'Guardando...'
+                    : 'Guardar Cambios',
               ),
             ),
             orElse: () => null,
@@ -121,56 +123,95 @@ class _ProductDetailView extends StatelessWidget {
     BuildContext context,
     ProductForm productForm,
     int productId,
+    Product product,
   ) {
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // Thumbnail placeholder (static for now)
-          _buildThumbnailSection(),
+          // Miniatura con imagen real
+          _buildThumbnailSection(product.thumbnail),
           const SizedBox(height: 24),
 
-          // Product ID display
+          // Mostrar ID del producto
           _buildProductIdCard(productId),
           const SizedBox(height: 16),
 
-          // Form fields
+          // Campos del formulario
           _buildFormSection(context, productForm),
 
-          const SizedBox(height: 80), // Space for FAB
+          const SizedBox(height: 80),
         ],
       ),
     );
   }
 
-  Widget _buildThumbnailSection() {
+  Widget _buildThumbnailSection(String thumbnailUrl) {
     return Card(
       elevation: 2,
+      clipBehavior: Clip.antiAlias,
       child: Container(
         height: 200,
         decoration: BoxDecoration(
           color: Colors.grey[200],
           borderRadius: BorderRadius.circular(12),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.image_outlined,
-              size: 80,
-              color: Colors.grey[400],
-            ),
-            const SizedBox(height: 8),
-            Text(
-              'Product Thumbnail',
-              style: TextStyle(
-                color: Colors.grey[600],
-                fontSize: 14,
+        child: thumbnailUrl.isNotEmpty
+            ? Image.network(
+                thumbnailUrl,
+                fit: BoxFit.fitHeight,
+                width: double.infinity,
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return Center(
+                    child: CircularProgressIndicator(
+                      value: loadingProgress.expectedTotalBytes != null
+                          ? loadingProgress.cumulativeBytesLoaded /
+                              loadingProgress.expectedTotalBytes!
+                          : null,
+                    ),
+                  );
+                },
+                errorBuilder: (context, error, stackTrace) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.broken_image,
+                        size: 80,
+                        color: Colors.grey[400],
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        'Error al cargar la imagen',
+                        style: TextStyle(
+                          color: Colors.grey[600],
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              )
+            : Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.image_outlined,
+                    size: 80,
+                    color: Colors.grey[400],
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'Imagen no disponible',
+                    style: TextStyle(
+                      color: Colors.grey[600],
+                      fontSize: 14,
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ],
-        ),
       ),
     );
   }
@@ -188,7 +229,7 @@ class _ProductDetailView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Product ID',
+                  'ID del Producto',
                   style: TextStyle(
                     fontSize: 12,
                     color: Colors.grey[600],
@@ -219,7 +260,7 @@ class _ProductDetailView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              'Product Information',
+              'Información del Producto',
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -227,9 +268,9 @@ class _ProductDetailView extends StatelessWidget {
             ),
             const SizedBox(height: 16),
 
-            // Title field
+            // Campo de título
             ProductInputField(
-              label: 'Product Title',
+              label: 'Título del Producto',
               initialValue: productForm.productTitle.value,
               prefixIcon: Icons.title,
               enabled: productForm.submissionStatus != FormzSubmissionStatus.inProgress,
@@ -245,9 +286,9 @@ class _ProductDetailView extends StatelessWidget {
             ),
             const SizedBox(height: 16),
 
-            // Category field
+            // Campo de categoría
             ProductInputField(
-              label: 'Category',
+              label: 'Categoría',
               initialValue: productForm.productCategory.value,
               prefixIcon: Icons.category,
               enabled: productForm.submissionStatus != FormzSubmissionStatus.inProgress,
@@ -263,9 +304,9 @@ class _ProductDetailView extends StatelessWidget {
             ),
             const SizedBox(height: 16),
 
-            // Price field
+            // Campo de precio
             ProductInputField(
-              label: 'Price',
+              label: 'Precio',
               initialValue: productForm.productPrice.value.toString(),
               prefixIcon: Icons.attach_money,
               isNumeric: true,
@@ -283,9 +324,9 @@ class _ProductDetailView extends StatelessWidget {
             ),
             const SizedBox(height: 16),
 
-            // Description field
+            // Campo de descripción
             ProductInputField(
-              label: 'Description',
+              label: 'Descripción',
               initialValue: productForm.productDescription.value,
               prefixIcon: Icons.description,
               maxLines: 4,
@@ -301,7 +342,7 @@ class _ProductDetailView extends StatelessWidget {
               },
             ),
 
-            // Error message display
+            // Muestro mensaje de error
             if (productForm.submissionStatus == FormzSubmissionStatus.failure &&
                 productForm.errorMessage.isNotEmpty)
               Padding(
@@ -347,7 +388,7 @@ class _ProductDetailView extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Text(
-              'Error Loading Product',
+              'Error al cargar el producto',
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 8),
@@ -360,7 +401,7 @@ class _ProductDetailView extends StatelessWidget {
             ElevatedButton.icon(
               onPressed: () => context.pop(),
               icon: const Icon(Icons.arrow_back),
-              label: const Text('Go Back'),
+              label: const Text('Volver'),
             ),
           ],
         ),
@@ -372,14 +413,14 @@ class _ProductDetailView extends StatelessWidget {
     showDialog(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        title: const Text('Delete Product'),
+        title: const Text('Eliminar Producto'),
         content: const Text(
-          'Are you sure you want to delete this product? This action cannot be undone.',
+          '¿Estás seguro de que deseas eliminar este producto? Esta acción no se puede deshacer.',
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(dialogContext).pop(),
-            child: const Text('Cancel'),
+            child: const Text('Cancelar'),
           ),
           TextButton(
             onPressed: () {
@@ -391,7 +432,7 @@ class _ProductDetailView extends StatelessWidget {
             style: TextButton.styleFrom(
               foregroundColor: Colors.red,
             ),
-            child: const Text('Delete'),
+            child: const Text('Eliminar'),
           ),
         ],
       ),
