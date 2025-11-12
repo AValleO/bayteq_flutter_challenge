@@ -1,5 +1,6 @@
 
 import 'package:bayteq_flutter_challenge/features/auth/auth.dart';
+import 'package:bayteq_flutter_challenge/features/products/products.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -14,7 +15,7 @@ class HomeScreen extends StatelessWidget {
           body: const TabBarView(
             children: [
               UserProfilePage(),
-              Placeholder(),
+              ProductPage(),
             ],
           ),
           bottomNavigationBar: Container(

@@ -7,4 +7,6 @@ export 'data/dto/product_response_dto.dart';
 export 'data/models/product_model.dart';
 export 'data/repositories/product_repository_impl.dart';
 export 'presentation/bloc/product_bloc.dart';
+export 'presentation/pages/product_page.dart';
+export 'presentation/widgets/lists/product_list.dart';
 

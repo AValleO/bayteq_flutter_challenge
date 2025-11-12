@@ -11,10 +11,12 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
   
   ProductBloc({required this.getProductsUseCase}) : super(ProductInitial()) {
     on<LoadFirstPage>(onLoadFirstPage);
+    on<LoadNextPage>(onLoadNextPage);
   }
 
   onLoadFirstPage(LoadFirstPage event, Emitter<ProductState> emit) async{
     // Cargar la primera página de productos
+    emit(ProductState.loading());
     final paginationParams = PaginationParams(limit: 20, skip: 0);
     final result = await getProductsUseCase(paginationParams);
     result.fold(
@@ -36,6 +38,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     if (currentState is! ProductLoaded) return;
     final currentProducts = currentState.paginatedProducts;
     if(!currentProducts.hasMore) return;
+    emit(ProductState.loading());
     final paginationParams = PaginationParams(
       limit: currentProducts.limit,
       skip: currentProducts.skip + 1,
