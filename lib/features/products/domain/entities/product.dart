@@ -43,8 +43,7 @@ class PaginatedProducts extends Equatable {
     required this.limit,
     required this.skip,
   });
-
-  bool get hasMore => skip + products.length < total;
+  
   int get currentPage => (skip ~/ limit) + 1;
 
   @override

@@ -33,6 +33,7 @@ class _ProductListState extends State<ProductList> {
   // Manejo del evento de scroll para disparar la carga de la siguiente página
   void _onScroll() {
     if (_isBottom) {
+      print('Alcanzado el final de la lista, cargando más productos...');
       context.read<ProductBloc>().add(const ProductEvent.loadNextPage());
     }
   }

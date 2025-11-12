@@ -11,7 +11,16 @@ class ProductPage extends StatelessWidget {
     return BlocProvider(
       create: (context) => getIt<ProductBloc>(),
       child: Scaffold(
-        appBar: AppBar(title: const Text('Lista de Productos')),
+        appBar: AppBar(
+          title: BlocBuilder<ProductBloc, ProductState>(
+            builder: (context, state) {              
+              final products = state is ProductLoaded
+                ? state.allProducts
+                : [];
+              return Text('Lista de Productos (Total: ${products.length})');
+            },
+          ),
+        ),
         body: const ProductList(),
       ),
     );

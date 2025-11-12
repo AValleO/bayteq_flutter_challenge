@@ -43,7 +43,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     }
     
     final currentProducts = currentState.paginatedProducts;
-    if(!currentProducts.hasMore) return;
+    print ('Intentando cargar más productos... Página actual skip: ${currentProducts.skip}, limit: ${currentProducts.limit}, total: ${currentProducts.total}');
     
     // Emitir estado de carga para paginación
     emit(currentState.copyWith(isLoadingMore: true, paginationError: null));
@@ -99,7 +99,6 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     if (currentState is! ProductLoaded) return;
     
     final currentProducts = currentState.paginatedProducts;
-    if(!currentProducts.hasMore) return;
     
     // Emito estado de carga para paginación
     emit(currentState.copyWith(isLoadingMore: true, paginationError: null));
