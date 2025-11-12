@@ -1,10 +1,145 @@
+import 'package:bayteq_flutter_challenge/features/products/products.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ProductList extends StatelessWidget {
+// Lo defino como StatefulWidget para manejar el ScrollController
+class ProductList extends StatefulWidget {
   const ProductList({super.key});
 
   @override
+  State<ProductList> createState() => _ProductListState();
+}
+
+class _ProductListState extends State<ProductList> {
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    // Cargo la primera página de productos al iniciar el widget
+    context.read<ProductBloc>().add(const ProductEvent.loadFirstPage());
+    
+    // Configuro el listener para scroll infinito
+    _scrollController.addListener(_onScroll);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  // Manejo del evento de scroll para disparar la carga de la siguiente página
+  void _onScroll() {
+    if (_isBottom) {
+      context.read<ProductBloc>().add(const ProductEvent.loadNextPage());
+    }
+  }
+
+  bool get _isBottom {
+    if (!_scrollController.hasClients) return false;
+    final maxScroll = _scrollController.position.maxScrollExtent;
+    final currentScroll = _scrollController.offset;
+    return currentScroll >= (maxScroll * 0.9); // Disparo al 90% del scroll
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return BlocConsumer<ProductBloc, ProductState>(
+      listener: (BuildContext context, state) {
+        // Presento mensajes de error si los hay según el estado
+        state.maybeWhen(
+          loaded: (paginatedProducts, allProducts, isLoadingMore, paginationError) {
+            if (paginationError != null) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(paginationError),
+                  action: SnackBarAction(
+                    label: 'Retry',
+                    onPressed: () {
+                      context.read<ProductBloc>().add(const ProductEvent.retryPagination());
+                    },
+                  ),
+                ),
+              );
+            }
+          },
+          error: (message) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(message),
+                action: SnackBarAction(
+                  label: 'Retry',
+                  onPressed: () {
+                    context.read<ProductBloc>().add(const ProductEvent.loadFirstPage());
+                  },
+                ),
+              ),
+            );
+          },
+          orElse: () {},
+        );
+      },
+      builder: (BuildContext context, state) {
+        return state.maybeWhen(
+          loading: () => const Center(child: CircularProgressIndicator()),
+          loaded: (paginatedProducts, allProducts, isLoadingMore, paginationError) {
+            return RefreshIndicator(
+              onRefresh: () async {
+                context.read<ProductBloc>().add(const ProductEvent.refreshProducts());
+                await Future.delayed(const Duration(milliseconds: 500));
+              },
+              child: ListView.builder(
+                // TODO: Crear widget separado para el ítem de producto
+                controller: _scrollController,
+                itemCount: allProducts.length + (isLoadingMore ? 1 : 0),
+                itemBuilder: (context, index) {
+                  if (index < allProducts.length) {
+                    final product = allProducts[index];
+                    return ListTile(
+                      leading: Image.network(
+                        product.thumbnail,
+                        width: 50,
+                        height: 50,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) =>
+                            const Icon(Icons.error),
+                      ),
+                      title: Text(product.title),
+                      subtitle: Text(
+                        '\$${product.price.toStringAsFixed(2)} - ${product.category}',
+                      ),
+                    );
+                  } else {
+                    return const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 16.0),
+                      child: Center(child: CircularProgressIndicator()),
+                    );
+                  }
+                },
+              ),
+            );
+          },
+          error: (message) => Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.error_outline, size: 48, color: Colors.red),
+                const SizedBox(height: 16),
+                Text('Error: $message'),
+                const SizedBox(height: 16),
+                ElevatedButton(
+                  onPressed: () {
+                    context.read<ProductBloc>().add(const ProductEvent.loadFirstPage());
+                  },
+                  child: const Text('Retry'),
+                ),
+              ],
+            ),
+          ),
+          orElse: () => const Center(child: Text('No products available')),
+        );
+      },
+    );
   }
 }

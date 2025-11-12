@@ -53,6 +53,9 @@ Future<void> setupDependencies() async {
   getIt.registerLazySingleton<AuthApiService>(
     () => AuthApiService(getIt<Dio>()),
   );
+  getIt.registerLazySingleton<ProductApiService>(
+    () => ProductApiService(getIt<Dio>()),
+  );
 
   // Registro Data Sources Remotos
   getIt.registerLazySingleton<AuthRemoteDataSource>(
