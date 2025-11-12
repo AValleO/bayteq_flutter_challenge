@@ -97,11 +97,16 @@ class ProductDetailBloc extends Bloc<ProductDetailEvent, ProductDetailState> {
 
     result.fold(
       (failure) => emit(ProductDetailState.loaded(
-        productForm: currentState.productForm,
+        productForm: currentState.productForm.copyWith(
+          submissionStatus: FormzSubmissionStatus.failure,
+          errorMessage: failure.message,
+        ),
         productId: currentState.productId,
       )),
       (updatedProduct) => emit(ProductDetailState.loaded(
-        productForm: currentState.productForm,
+        productForm: currentState.productForm.copyWith(
+          submissionStatus: FormzSubmissionStatus.success,
+        ),
         productId: currentState.productId,
       )),
     );

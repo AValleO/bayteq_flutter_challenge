@@ -3,9 +3,14 @@ import 'package:bayteq_flutter_challenge/features/products/products.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ProductPage extends StatelessWidget {
+class ProductPage extends StatefulWidget {
   const ProductPage({super.key});
 
+  @override
+  State<ProductPage> createState() => _ProductPageState();
+}
+
+class _ProductPageState extends State<ProductPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -13,10 +18,10 @@ class ProductPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: BlocBuilder<ProductBloc, ProductState>(
-            builder: (context, state) {              
+            builder: (context, state) {
               final products = state is ProductLoaded
-                ? state.allProducts
-                : [];
+                  ? state.allProducts
+                  : [];
               return Text('Lista de Productos (Total: ${products.length})');
             },
           ),

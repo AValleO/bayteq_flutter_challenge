@@ -43,7 +43,7 @@ class ValidationRules {
     if (value == null || value.isEmpty) return 'El título es obligatorio';
     if (value.length < productTitleMinLength) return 'El título debe tener al menos $productTitleMinLength caracteres';
     if (value.length > productTitleMaxLength) return 'El título no debe exceder $productTitleMaxLength caracteres';
-    if (!RegExp(r'^[a-zA-Z0-9_]+$').hasMatch(value)) return 'El título solo puede contener letras, números y guiones bajos';
+    if (!RegExp(r'^[a-zA-Z0-9_ ]+$').hasMatch(value)) return 'El título solo puede contener letras, números y guiones bajos';
     return null;
   }
 
@@ -51,7 +51,7 @@ class ValidationRules {
     if (value == null || value.isEmpty) return 'La descripción es obligatoria';
     if (value.length < productDescriptionMinLength) return 'La descripción debe tener al menos $productDescriptionMinLength caracteres';
     if (value.length > productDescriptionMaxLength) return 'La descripción no debe exceder $productDescriptionMaxLength caracteres';
-    if (!RegExp(r'^[a-zA-Z0-9_]+$').hasMatch(value)) return 'La descripción solo puede contener letras, números y guiones bajos';
+    if (!RegExp(r'^[a-zA-Z0-9_ ,.-]+$').hasMatch(value)) return 'La descripción solo puede contener letras, números y guiones bajos';
     return null;
   }
 
@@ -65,7 +65,7 @@ class ValidationRules {
     if (value == null || value.isEmpty) return 'La categoría es obligatoria';
     if (value.length < productCategoryMinLength) return 'La categoría debe tener al menos $productCategoryMinLength caracteres';
     if (value.length > productCategoryMaxLength) return 'La categoría no debe exceder $productCategoryMaxLength caracteres';
-    if (!RegExp(r'^[a-zA-Z0-9_]+$').hasMatch(value)) return 'La categoría solo puede contener letras, números y guiones bajos';
+    if (!RegExp(r'^[a-zA-Z0-9_ ]+$').hasMatch(value)) return 'La categoría solo puede contener letras, números y guiones bajos';
     return null;
   }
 }

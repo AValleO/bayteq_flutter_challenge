@@ -14,6 +14,7 @@ class ProductList extends StatefulWidget {
 
 class _ProductListState extends State<ProductList> {
   final ScrollController _scrollController = ScrollController();
+  bool _isFirstLoad = true;
 
   @override
   void initState() {
@@ -23,6 +24,16 @@ class _ProductListState extends State<ProductList> {
     
     // Configuro el listener para scroll infinito
     _scrollController.addListener(_onScroll);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Refresco desde caché cuando vuelvo a esta pantalla (excepto la primera carga)
+    if (!_isFirstLoad) {
+      context.read<ProductBloc>().add(const ProductEvent.refreshProducts());
+    }
+    _isFirstLoad = false;
   }
 
   @override
